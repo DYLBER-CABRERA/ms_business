@@ -24,5 +24,10 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+// Importaciones de rutas
+import './routes/departments';
+import './routes/municipalities';
+import './routes/addresses';
+import './routes/distrubutionCenters';
+import './routes/vehicles';
 
-import "./routes/vehicles"
