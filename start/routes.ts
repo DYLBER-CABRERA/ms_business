@@ -18,11 +18,19 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from "@ioc:Adonis/Core/Route";
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
+Route.get("/", async () => {
+  return { hello: "world" };
+});
 
+import "./routes/vehicles";
 
-import "./routes/vehicles"
+import "./routes/drivers"; //Registro de rutas del conductor
+import "./routes/shifts"; //Registro de los turnos del conductor
+import "./routes/services";
+import "./routes/expenses";
+import "./routes/administrators";
+import "./routes/restaurants";
+import "./routes/hotels";
+import "./routes/vehicleDrivers";
