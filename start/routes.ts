@@ -24,5 +24,5 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-import "./routes/lote"
+
 import "./routes/vehicles"
