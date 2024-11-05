@@ -31,4 +31,5 @@ import './routes/addresses';
 import './routes/distrubutionCenters';
 import './routes/vehicles';
 import './routes/contracts'
+import './routes/routes'
 

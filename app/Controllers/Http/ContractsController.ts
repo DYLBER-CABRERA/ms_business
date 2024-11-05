@@ -1,21 +1,21 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Contracts from 'App/Models/Contracts';
+import Contract from 'App/Models/Contract';
 
 
-export default class ContractsController {
+export default class ContractController {
     public async find({ request, params }: HttpContextContract) {
         //Buscar el elemento dado una condición 
         if (params.id) {
-            let theContracts: Contracts = await Contracts.findOrFail(params.id)
-            return theContracts;
+            let theContract: Contract = await Contract.findOrFail(params.id)
+            return theContract;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Contracts.query().paginate(page, perPage)
+                return await Contract.query().paginate(page, perPage)
             } else {
-                return await Contracts.query()
+                return await Contract.query()
             }
 
         }
@@ -24,22 +24,22 @@ export default class ContractsController {
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theContracts: Contracts = await Contracts.create(body);
-        return theContracts;
+        const theContract: Contract = await Contract.create(body);
+        return theContract;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theContracts: Contracts = await Contracts.findOrFail(params.id);
+        const theContract: Contract = await Contract.findOrFail(params.id);
         const body = request.body();
-        theContracts.start_date = body.start_date;
-        theContracts.end_date = body.end_date;
-        theContracts.client_id = body.client_id;
-        return await theContracts.save();
+        theContract.start_date = body.start_date;
+        theContract.end_date = body.end_date;
+        theContract.client_id = body.client_id;
+        return await theContract.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theContracts: Contracts = await Contracts.findOrFail(params.id);
+        const theContract: Contract = await Contract.findOrFail(params.id);
             response.status(204);
-            return await theContracts.delete();
+            return await theContract.delete();
     }
 }
