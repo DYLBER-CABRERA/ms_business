@@ -1,31 +1,29 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column , hasMany, HasMany} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany , HasMany} from '@ioc:Adonis/Lucid/Orm'
 import Route from './Route'
 
-export default class Vehicle extends BaseModel {
+export default class Contract extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public license_plate: String
+  public start_date: DateTime
 
   @column()
-  public model: String
+  public end_date: DateTime
 
   @column()
-  public capacity: number
+  public client_id: number 
 
-  @column()
-  public cargo_type: String
-
+  
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-  
+
   @hasMany(() => Route,{
-    foreignKey: 'vehicle_id',
+    foreignKey: 'contract_id'
   })
   public routes: HasMany <typeof Route>
 }

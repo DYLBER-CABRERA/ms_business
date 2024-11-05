@@ -37,3 +37,5 @@ import './routes/departments';
 import './routes/municipalities';
 import './routes/addresses';
 import './routes/distrubutionCenters';
+import './routes/contracts'
+import './routes/routes'
