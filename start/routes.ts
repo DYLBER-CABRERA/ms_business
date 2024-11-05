@@ -30,4 +30,6 @@ import './routes/municipalities';
 import './routes/addresses';
 import './routes/distrubutionCenters';
 import './routes/vehicles';
+import './routes/operations';
+import './routes/addr_route_orders';
 

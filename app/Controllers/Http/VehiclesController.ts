@@ -6,6 +6,7 @@ export default class VehiclesController {
         //Buscar el elemento dado una condición 
         if (params.id) {
             let theVehicles: Vehicles = await Vehicles.findOrFail(params.id)
+            await theVehicles.load("operations")
             return theVehicles;
         } else {
             const data = request.all()
@@ -24,6 +25,7 @@ export default class VehiclesController {
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const theVehicles: Vehicles = await Vehicles.create(body);
+        await theVehicles.load("operations");
         return theVehicles;
     }
 
