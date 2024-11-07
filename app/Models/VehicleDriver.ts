@@ -7,7 +7,7 @@ export default class VehicleDriver extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-
+  //!PARA LA RELACIÓN CON VEHICULO
   @column()
   public vehicle_id: number;
   @column()
@@ -19,7 +19,7 @@ export default class VehicleDriver extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-
+  //!PARA LA RELACIÓN CON VEHICULO
     @belongsTo(() => Vehicle, {
   //service_id es el nombre de la clave foranea en la tabla service
       foreignKey: "vehicle_id",

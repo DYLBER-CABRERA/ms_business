@@ -84,6 +84,7 @@ export default class DriversController {
         error.status || 500
       );
     }
+
   }
 
   public async update({ params, request }: HttpContextContract) {
@@ -107,4 +108,3 @@ export default class DriversController {
     return await theTheater.delete(); //el teatro que se encontro, eliminelo
   }
 }
-

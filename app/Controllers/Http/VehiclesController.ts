@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Vehicles from "App/Models/Vehicle";
 import VehicleValidator from "App/Validators/VehicleValidator";
 
-
 export default class VehiclesController {
 
     public async find({ request, params }: HttpContextContract) {
@@ -34,8 +33,6 @@ export default class VehiclesController {
         await theVehicles.load("operations");
         return theVehicles;
     }
-
-  
 
   public async update({ params, request }: HttpContextContract) {
     const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);

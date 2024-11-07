@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
 
+      //!PARA LA RELACIÓN CON VEHICULOS
        table.integer("vehicle_id").unsigned().references("vehicles.id");
       // .onDelete("CASCADE"); //FORMA DE crear una clave foranea, identificador, referencia a la clase pelicula y eliminacion en cascada
 

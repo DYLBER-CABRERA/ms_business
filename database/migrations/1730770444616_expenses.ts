@@ -14,7 +14,7 @@ export default class extends BaseSchema {
       table.integer("driver_id").unsigned().references("drivers.id");
       //    .onDelete("CASCADE");
 
-     
+      //!PARA LA RELACION CON EL DUEÑO
       //table.integer("owner_id").unsigned().references("owner.id");
       //    .onDelete("CASCADE");
 

@@ -10,7 +10,6 @@ export default class RoutesController {
             await theRoute.load("Vehicle")
             await theRoute.load("contract")
             await theRoute.load("addreRouteOrders")
-
             return theRoute;
         } else {
             const data = request.all()
@@ -33,6 +32,7 @@ export default class RoutesController {
         await theRoute.load("Vehicle")
         await theRoute.load("contract")
         await theRoute.load("addreRouteOrders")
+
         return theRoute;
     }
 

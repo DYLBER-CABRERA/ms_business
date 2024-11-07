@@ -11,11 +11,12 @@ export default class Driver extends BaseModel {
 
   @column()
   public license_number: string; // Número de licencia del conductor
+  
   @column()
   public expiration_date: DateTime;
 
   @column()
-  public phone_number: string; // Número de contacto del conductor
+  public phone_number: number; // Número de contacto del conductor
 
   @column()
   public user_id: string;

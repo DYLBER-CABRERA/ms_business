@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.dateTime('start_date')
       table.dateTime('end_date')
       table.integer('client_id')
-      
+    
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

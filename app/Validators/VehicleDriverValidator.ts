@@ -10,7 +10,7 @@ export default class VehicleDriverValidator {
       rules.exists({ table: "drivers", column: "id" }),
     ]),
 
-   
+    //! PARA CUANDO ESTÉ LA CLASE VEHICLE
     //   vehicle_id: schema.number([
     //*REVISA que el conductor con ese id si exista en la tabla de conductores
     //     rules.exists({ table: "vehicles", column: "id" }),

@@ -20,11 +20,11 @@ export default class VehicleValidator {
       rules.maxLength(30),
       rules.unique({ table: 'vehicles', column: 'license_plate' })
     ]),
+    
     model: schema.string([
       rules.required(), // Asegura que el campo no esté vacío
       rules.alphaNum({
-        allow: ["space", "underscore", "dash"], //es decir que soporta espacios guion bajo
-        
+        allow: ["space", "underscore", "dash"], //es decir que soporta espacios guion bajo       
       }),
       rules.minLength(2),
       rules.maxLength(30),
@@ -33,6 +33,7 @@ export default class VehicleValidator {
     capacity: schema.number([
       rules.unsigned(), //que no sea negativo
       rules.range(1, 100),
+
     ]),
     cargo_type: schema.string([
       rules.required(), // Asegura que el campo no esté vacío
