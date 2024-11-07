@@ -10,7 +10,8 @@ export default class AddressesController {
             let theAddress: Address = await Address.findOrFail(params.id)//visualizo para mirar uno solo o varios 
             await theAddress.load("municipality")
             await theAddress.load("distributionCenter")
-         
+            await theAddress.load("startAddressOrders")
+            await theAddress.load("endAddressOrders")
             return theAddress;//retorna el teatro
         } else {
             //sino viene el identificador en la ruta
@@ -33,7 +34,9 @@ export default class AddressesController {
         const theAddress: Address = await Address.create(body);//await es esperando dentro del hilo a que la clase address la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene los atriutos de address y lo colocamos en la variable theAdress de tipo address
         await theAddress.load("municipality");//cargamos la relacion de municipio
         await theAddress.load("distributionCenter");//cargamos la relacion de centro de distribucion
-        
+      
+
+       
         return theAddress; //retornamos el teatro
     }
 

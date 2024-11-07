@@ -1,7 +1,10 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Vehicles from 'App/Models/Vehicle'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Vehicles from "App/Models/Vehicle";
+import VehicleValidator from "App/Validators/VehicleValidator";
+
 
 export default class VehiclesController {
+
     public async find({ request, params }: HttpContextContract) {
         //Buscar el elemento dado una condición 
         if (params.id) {
@@ -20,29 +23,34 @@ export default class VehiclesController {
 
         }
 
+
     }
+  
 
     public async create({ request }: HttpContextContract) {
+      await request.validate(VehicleValidator);
         const body = request.body();
         const theVehicles: Vehicles = await Vehicles.create(body);
         await theVehicles.load("operations");
         return theVehicles;
     }
 
-    public async update({ params, request }: HttpContextContract) {
-        const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
-        const body = request.body();
-        theVehicles.license_plate = body.license_plate;
-        theVehicles.model = body.model;
-        theVehicles.capacity = body.capacity;
-        theVehicles.cargo_type = body.cargo_type
-        return await theVehicles.save();
-    }
+  
 
-    public async delete({ params, response }: HttpContextContract) {
-        const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
-            response.status(204);
-            return await theVehicles.delete();
-    }
+  public async update({ params, request }: HttpContextContract) {
+    const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
+    const body = request.body();
+    theVehicles.license_plate = body.license_plate;
+    theVehicles.model = body.model;
+    theVehicles.capacity = body.capacity;
+    theVehicles.cargo_type = body.cargo_type;
 
+    return await theVehicles.save();
+  }
+
+  public async delete({ params, response }: HttpContextContract) {
+    const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
+    response.status(204);
+    return await theVehicles.delete();
+  }
 }
