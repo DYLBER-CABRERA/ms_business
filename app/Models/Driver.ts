@@ -10,15 +10,16 @@ export default class Driver extends BaseModel {
   //*NO TIENE NOMBRE NI CORREO PORQUE SE HEREDA DEL USUARIO
 
   @column()
-  public user_id: number;
-
-  @column()
   public license_number: string; // Número de licencia del conductor
+  
   @column()
   public expiration_date: DateTime;
 
   @column()
   public phone_number: number; // Número de contacto del conductor
+
+  @column()
+  public user_id: string;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

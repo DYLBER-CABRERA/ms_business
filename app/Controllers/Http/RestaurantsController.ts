@@ -6,8 +6,8 @@ export default class RestaurantsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theRestaurant: Restaurant = await Restaurant.findOrFail(params.id);
-      //      await theRestaurant.load("administrator"); //devuelve la info de que administrador tiene ese servicio
-
+      
+       //devuelve la info de que administrador tiene ese servicio
       return theRestaurant;
     } else {
       const data = request.all();

@@ -14,6 +14,7 @@ export default class MunicipalitiesController {
         await municipality.load('department') // Carga la relación 'department' asociada al municipio
         await municipality.load('addresses') // Carga la relación 'addresses' asociada al municipio
         await municipality.load('distributionCenters') // Carga la relación 'distributionCenter' asociada a cada dirección
+        await municipality.load('operations') // Carga la relación 'address' asociada a cada centro de distribución
         return response.json(municipality)
       } else {
         // Si no se proporciona un ID, lista todos los municipios con paginación

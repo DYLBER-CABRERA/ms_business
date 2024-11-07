@@ -6,10 +6,10 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.integer("user_id"); //* EL USER YA DEBE ESTAR CREADO Y SE LE ASOCIOA AL CONDUCTOR
       table.string("license_number");
       table.dateTime("expiration_date");
-      table.integer("phone_number");
+      table.string("phone_number"); // Cambiado a string
+      table.string("user_id"); //* EL USER YA DEBE ESTAR CREADO Y SE LE ASOCIOA AL CONDUCTOR
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -1,32 +1,90 @@
+import { Exception } from "@adonisjs/core/build/standalone";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Driver from "App/Models/Driver";
-import DriverValidator from "App/Validators/DriverValidator";
+//import DriverValidator from "App/Validators/DriverValidator";
+import axios from "axios";
+import Env from "@ioc:Adonis/Core/Env";
 
 export default class DriversController {
   public async find({ request, params }: HttpContextContract) {
-    if (params.id) {
-      let theDriver: Driver = await Driver.findOrFail(params.id);
-      await theDriver.load("shift"); //*devuelve la info de turnos asignados tiene el conductor
-      await theDriver.load("expense");
-      await theDriver.load("vehicleDriver")
-      return theDriver;
-    } else {
-      const data = request.all();
-      if ("page" in data && "per_page" in data) {
-        const page = request.input("page", 1);
-        const perPage = request.input("per_page", 20);
-        return await Driver.query().paginate(page, perPage); //cuando hace la consulta se hace en ese rango de pagina
+    //let theDriver
+
+    try {
+      if (params.id) {
+        let theDriver: Driver = await Driver.findOrFail(params.id);
+        // Llamada al microservicio de usuarios
+        const userResponse = await axios.get(
+          `${Env.get("MS_SECURITY")}/users/${theDriver.user_id}`,
+          {
+            headers: { Authorization: request.headers().authorization || "" },
+          }
+        );
+
+        if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
+          throw new Exception(
+            "No se encontró información de usuario en el microservicio",
+            404
+          );
+        }
+
+        return { cliente: theDriver, usuario: userResponse.data };
       } else {
-        return await Driver.query(); //es para que espere a la base de datos
+        const data = request.all();
+        if ("page" in data && "per_page" in data) {
+          const page = request.input("page", 1);
+          const perPage = request.input("per_page", 20);
+          return await Driver.query().paginate(page, perPage); //cuando hace la consulta se hace en ese rango de pagina
+        } else {
+          return await Driver.query(); //es para que espere a la base de datos
+        }
       }
+    } catch (error) {
+      throw new Exception(
+        error.message || "Error al procesar la solicitud",
+        error.status || 500
+      );
     }
   }
-  public async create({ request }: HttpContextContract) {
-    await request.validate(DriverValidator); //*cuando se llame este endpoint antes de mandar valida los datos de acuerdo a los parametros del validador
 
-    const body = request.body();
-    const theDriver: Driver = await Driver.create(body);
-    return theDriver;
+
+  public async create({ request, response }: HttpContextContract) {
+    try {
+      // Validar datos usando el ClienteValidator
+      const body = request.body();
+
+      // Llamada al microservicio de usuarios
+      const userResponse = await axios.get(
+        `${Env.get("MS_SECURITY")}/users/${body.user_id}`,
+        {
+          headers: { Authorization: request.headers().authorization || "" },
+        }
+      );
+
+      // Verificar si no se encontró información del usuario en el microservicio
+      if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
+        return response.notFound({
+          error:
+            "No se encontró información de usuario, verifique que el código sea correcto",
+        });
+      }
+
+      
+      // Crear el driver si la validación y la verificación de usuario son exitosas
+
+      const theDriver: Driver = await Driver.create(body);
+      return theDriver;
+    } catch (error) {
+      // Si el error es de validación, devolver los mensajes de error de forma legible
+      if (error.messages) {
+        return response.badRequest({ errors: error.messages.errors });
+      }
+      // Para cualquier otro tipo de error, lanzar una excepción genérica
+      throw new Exception(
+        error.message || "Error al procesar la solicitud",
+        error.status || 500
+      );
+    }
+
   }
 
   public async update({ params, request }: HttpContextContract) {
@@ -38,7 +96,6 @@ export default class DriversController {
     theDriver.expiration_date = body.expiration_date;
 
     theDriver.phone_number = body.phone_number;
-
 
     return await theDriver.save(); //se confirma a la base de datos el cambio
   }

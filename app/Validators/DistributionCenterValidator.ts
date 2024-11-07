@@ -13,7 +13,9 @@ export default class DistributionCenterValidator {
     phone: schema.string({}, [
       rules.required(),
       rules.regex(/^[0-9+\-()\s]+$/), // Permite números, espacios, paréntesis, guiones y el signo más
-      rules.unique({ table: 'distribution_centers', column: 'phone' }) // Asegura que el número de teléfono sea único en la tabla 'distribution_centers'
+      rules.unique({ table: 'distribution_centers', column: 'phone' }), // Asegura que el número de teléfono sea único en la tabla 'distribution_centers'
+      rules.minLength(10), // Asegura que el número de teléfono tenga al menos 10 dígitos
+      rules.maxLength(10)  // Asegura que el número de teléfono tenga como máximo 10 dígitos
     ]),
   
     email: schema.string({}, [
