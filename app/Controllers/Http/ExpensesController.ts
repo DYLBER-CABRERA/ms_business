@@ -6,8 +6,6 @@ export default class ExpensesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theExpense: Expense = await Expense.findOrFail(params.id);
-
-      //  await theExpense.load("shift"); //devuelve la info de que sillas tiene el teatro
       await theExpense.load("driver"); //*Devuelve que conductor ...
       await theExpense.load("service"); 
 

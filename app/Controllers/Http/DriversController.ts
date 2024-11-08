@@ -1,9 +1,9 @@
 import { Exception } from "@adonisjs/core/build/standalone";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Driver from "App/Models/Driver";
-//import DriverValidator from "App/Validators/DriverValidator";
 import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
+import DriverValidator from "App/Validators/DriverValidator";
 
 export default class DriversController {
   public async find({ request, params }: HttpContextContract) {
@@ -46,7 +46,6 @@ export default class DriversController {
     }
   }
 
-
   public async create({ request, response }: HttpContextContract) {
     try {
       // Validar datos usando el ClienteValidator
@@ -67,10 +66,8 @@ export default class DriversController {
             "No se encontró información de usuario, verifique que el código sea correcto",
         });
       }
-
-      
       // Crear el driver si la validación y la verificación de usuario son exitosas
-
+      await request.validate(DriverValidator);
       const theDriver: Driver = await Driver.create(body);
       return theDriver;
     } catch (error) {
@@ -84,17 +81,15 @@ export default class DriversController {
         error.status || 500
       );
     }
-
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theDriver: Driver = await Driver.findOrFail(params.id); //busque el teatro con el identificador
     const body = request.body(); //leer lo que viene en la carta
-    theDriver.user_id = body.user_id;
 
+    theDriver.user_id = body.user_id;
     theDriver.license_number = body.license_number;
     theDriver.expiration_date = body.expiration_date;
-
     theDriver.phone_number = body.phone_number;
 
     return await theDriver.save(); //se confirma a la base de datos el cambio
