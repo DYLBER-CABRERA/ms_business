@@ -20,9 +20,7 @@ export default class RoutesController {
             } else {
                 return await Route.query().preload("Vehicle").preload("contract")
             }
-
         }
-
     }
 
     public async create({ request }: HttpContextContract) {
@@ -32,14 +30,13 @@ export default class RoutesController {
         await theRoute.load("Vehicle")
         await theRoute.load("contract")
         await theRoute.load("addreRouteOrders")
-
         return theRoute;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theRoute: Route = await Route.findOrFail(params.id);
         const body = request.body();
-        theRoute.startingPlace =body.startingPlace;
+        theRoute.startingPlace = body.startingPlace;
         theRoute.endingPlace = body.endingPlace;
         theRoute.distance = body.distance;
         theRoute.deliveryDate = body.deliveryDate;
@@ -50,7 +47,7 @@ export default class RoutesController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theRoute: Route = await Route.findOrFail(params.id);
-            response.status(204);
-            return await theRoute.delete();
+        response.status(204);
+        return await theRoute.delete();
     }
 }

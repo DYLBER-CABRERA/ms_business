@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Client from './Client'
 import Batch from './Batch'
-
+import ProductCategory from './ProductCategory'
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -27,6 +27,11 @@ export default class Product extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => ProductCategory, {
+    foreignKey: "category_id", //Clave foránea que relaciona la identidad dominada
+  })
+  public productCategory: HasMany<typeof ProductCategory>;
 
   @belongsTo(() => Client,{
     foreignKey: 'client_id'//Clave foránea que relaciona con la clase dominante

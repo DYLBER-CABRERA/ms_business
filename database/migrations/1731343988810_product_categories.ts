@@ -1,17 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'routes'
+  protected tableName = 'product_categories'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('starting_place')
-      table.string('ending_place')
-      table.integer('distance')
-      table.date('delivery_date')
-      table.integer('contract_id').unsigned().references('contracts.id')
-      table.integer('vehicle_id').unsigned().references('vehicles.id')
+      table.integer('product_id').unsigned().references('products.id')
+      table.integer('category_id').unsigned().references('categories.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

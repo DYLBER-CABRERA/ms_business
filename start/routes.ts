@@ -45,6 +45,7 @@ import './routes/categories'
 import './routes/batches'
 import './routes/clients'
 import './routes/products'
+import './routes/productCategories'
 
 
 

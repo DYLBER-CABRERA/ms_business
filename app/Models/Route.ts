@@ -48,6 +48,7 @@ export default class Route extends BaseModel {
     foreignKey: 'vehicle_id' //Clave foránea que relaciona con la categoría dominante
   })
   public Vehicle: BelongsTo<typeof Vehicle>
+  
   @belongsTo(() => Contract, {
     foreignKey: 'contract_id' //Clave foránea que relaciona las categorías dominada
   })
