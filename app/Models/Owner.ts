@@ -1,25 +1,26 @@
 import { DateTime } from "luxon";
 import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
-import Service from "./Service";
+import Driver from "./Driver";
 
-export default class Restaurant extends BaseModel {
-  //ES UNA
+export default class Owner extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
   @column()
-  public cuisine_type: string;
+  public user_id: string;
   @column()
-  public service_id: number;
+  public phone_number: number;
+  @column()
+  public driver_id: number;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
-  @belongsTo(() => Service, {
-    //*hotel -servicio
-    foreignKey: "service_id",
+  
+  @belongsTo(() => Driver, {
+    foreignKey: "driver_id",
   })
-  public service: BelongsTo<typeof Service>;
+  public driver: BelongsTo<typeof Driver>;
 }

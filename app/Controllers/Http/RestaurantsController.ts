@@ -32,8 +32,7 @@ export default class RestaurantsController {
     const theRestaurant: Restaurant = await Restaurant.findOrFail(params.id); //busque el teatro con el identificador
     const body = request.body(); //leer lo que viene en la carta
 
-    theRestaurant.name = body.name; //de lo que está en la base de datos, actualice con lo que viene dentro del body
-    theRestaurant.address = body.address;
+    theRestaurant.cuisine_type = body.cuisine_type;
     theRestaurant.service_id = body.service_id;
 
     return await theRestaurant.save(); //se confirma a la base de datos el cambio

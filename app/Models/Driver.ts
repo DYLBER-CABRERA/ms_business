@@ -1,8 +1,9 @@
 import { DateTime } from "luxon";
-import { BaseModel, column, HasMany, hasMany } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, column, HasMany, hasMany, HasOne, hasOne } from "@ioc:Adonis/Lucid/Orm";
 import Shift from "./Shift";
 import Expense from "./Expense";
 import VehicleDriver from "./VehicleDriver";
+import Owner from "./Owner";
 
 export default class Driver extends BaseModel {
   @column({ isPrimary: true })
@@ -11,7 +12,7 @@ export default class Driver extends BaseModel {
 
   @column()
   public license_number: string; // Número de licencia del conductor
-  
+
   @column()
   public expiration_date: DateTime;
 
@@ -43,4 +44,9 @@ export default class Driver extends BaseModel {
     foreignKey: "driver_id", //cual es la clave foranea que permite esa relacion
   })
   public vehicleDriver: HasMany<typeof VehicleDriver>;
+  
+  @hasOne(() => Owner, {
+    foreignKey: "driver_id",
+  })
+  public owner: HasOne<typeof Owner>;
 }

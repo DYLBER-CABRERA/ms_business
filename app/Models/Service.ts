@@ -9,13 +9,15 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import Expense from "./Expense";
 import Administrator from "./Administrator";
+import Hotel from "./Hotel";
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
-
   @column()
-  public amount: number;
+  public name: string;
+  @column()
+  public address: string;
 
   @column()
   public description: string;
@@ -34,13 +36,18 @@ export default class Service extends BaseModel {
   public updatedAt: DateTime;
 
   @hasMany(() => Expense, {
-    //tengo muchas funciones
     foreignKey: "service_id", //cual es la clave foranea que permite esa relacion
   })
   public expense: HasMany<typeof Expense>;
+
   //QUE UN SERVICIO TIENE UN ADMINISTRADOR
   @hasOne(() => Administrator, {
     foreignKey: "service_id",
   })
   public administrator: HasOne<typeof Administrator>;
+
+  @hasOne(() => Hotel, {
+    foreignKey: "service_id",
+  })
+  public hotel: HasOne<typeof Hotel>;
 }
