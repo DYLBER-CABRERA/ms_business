@@ -43,6 +43,7 @@ import './routes/routes';
 import './routes/addreRouteOrders';
 import './routes/categories'
 import './routes/batches'
+import './routes/clients'
 
 
 
