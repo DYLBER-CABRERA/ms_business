@@ -41,6 +41,7 @@ import './routes/contracts';
 import './routes/operations';
 import './routes/routes';
 import './routes/addreRouteOrders';
+import './routes/categories'
 
 
 

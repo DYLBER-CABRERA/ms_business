@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column , BelongsTo, hasMany, HasMany} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, column, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Contract from './Contract'
 import Vehicle from './Vehicle';
 import AddreRouteOrder from './AddreRouteOrder';
@@ -33,21 +33,20 @@ export default class Route extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(()=> Contract, {
+  @belongsTo(() => Contract, {
     foreignKey: 'contract_id'
 
   })
-  public contract: BelongsTo <typeof Contract>
+  public contract: BelongsTo<typeof Contract>
 
-  @belongsTo(()=> Vehicle, {
+  @belongsTo(() => Vehicle, {
     foreignKey: 'vehicle_id'
 
   })
-  public Vehicle: BelongsTo <typeof Vehicle>
-  
- @hasMany(() => AddreRouteOrder, {
-   
+  public Vehicle: BelongsTo<typeof Vehicle>
+
+  @hasMany(() => AddreRouteOrder, {
     foreignKey: "route_id", //cual es la clave foranea que permite esa relacion
   })
-  public addreRouteOrders: HasMany<typeof AddreRouteOrder>; 
+  public addreRouteOrders: HasMany<typeof AddreRouteOrder>;
 }
