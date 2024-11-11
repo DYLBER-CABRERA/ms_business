@@ -10,6 +10,7 @@ import {
 import Expense from "./Expense";
 import Administrator from "./Administrator";
 import Hotel from "./Hotel";
+import Restaurant from "./Restaurant";
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -50,4 +51,9 @@ export default class Service extends BaseModel {
     foreignKey: "service_id",
   })
   public hotel: HasOne<typeof Hotel>;
+
+  @hasOne(() => Restaurant, {
+    foreignKey: "service_id",
+  })
+  public restaurant: HasOne<typeof Restaurant>;
 }

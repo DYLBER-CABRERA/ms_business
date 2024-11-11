@@ -22,4 +22,5 @@ export default class Restaurant extends BaseModel {
     foreignKey: "service_id",
   })
   public service: BelongsTo<typeof Service>;
+  
 }

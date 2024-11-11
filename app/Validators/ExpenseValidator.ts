@@ -22,7 +22,6 @@ export default class ExpenseValidator {
       rules.exists({ table: "services", column: "id" }),
     ]),
 
-    //!PARA LA CLASE OWNER
       owner_id: schema.number([
     //*REVISA que el servicio con ese id si exista en la tabla de servicios en la columna id
        rules.exists({ table: "owners", column: "id" }),

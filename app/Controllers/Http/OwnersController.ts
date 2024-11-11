@@ -1,9 +1,9 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Env from "@ioc:Adonis/Core/Env";
 import Owner from "App/Models/Owner";
-import axios from 'axios';
-import { Exception } from '@adonisjs/core/build/standalone';
-import OwnerValidator from 'App/Validators/OwnerValidator';
+import axios from "axios";
+import { Exception } from "@adonisjs/core/build/standalone";
+import OwnerValidator from "App/Validators/OwnerValidator";
 
 export default class OwnersController {
   public async find({ request, params }: HttpContextContract) {
@@ -27,6 +27,7 @@ export default class OwnersController {
             404
           );
         }
+        await theOwner.load("driver");
 
         return { cliente: theOwner, usuario: userResponse.data };
       } else {
@@ -97,6 +98,7 @@ export default class OwnersController {
     theOwner.driver_id = body.driver_id;
     await theOwner.load("driver");
     await theOwner.load("vehicleOwners");
+
     return await theOwner.save(); //se confirma a la base de datos el cambio
   }
 
