@@ -8,8 +8,7 @@ export default class AddreRouteOrdersController {
         if (params.id) {//verifica en la ruta si viene un id
             //visualizo para mirar uno solo o varios en la base de datos y le dice espere hasta que se ejecute esa cansulta y los busca y si no lo encuetra falle y se levante un error 404 si existe todo esta bien
             let theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.findOrFail(params.id)//visualizo para mirar uno solo o varios 
-            await theAddreRouteOrder.load("start_address")
-            await theAddreRouteOrder.load("end_address")
+            await theAddreRouteOrder.load("addresses")
             await theAddreRouteOrder.load("route")        
             return theAddreRouteOrder;//retorna el teatro
         } else {
@@ -33,8 +32,7 @@ export default class AddreRouteOrdersController {
         );//valida el request con el addrRouteOrderValidator
         const body = request.body();//toma la carta, lee el cuerpo del la carta y lo agrega a la variable body
         const theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.create(body);//await es esperando dentro del hilo a que la clase addrRouteOrder la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene el location y la capacidad y lo colocamos en la variable theAdress de tipo addrRouteOrder
-        await theAddreRouteOrder.load("start_address");//cargamos la relacion de municipio
-        await theAddreRouteOrder.load("end_address");//cargamos la relacion de municipio
+        await theAddreRouteOrder.load("addresses")
         await theAddreRouteOrder.load("route")//cargamos la relacion de departamento
         
         return theAddreRouteOrder; //retornamos el teatro
@@ -43,8 +41,7 @@ export default class AddreRouteOrdersController {
     public async update({ params, request }: HttpContextContract) {
         const theAddreRouteOrder: AddreRouteOrder= await AddreRouteOrder.findOrFail(params.id);
         const body = request.body();
-        theAddreRouteOrder.start_address_id = body.start_address_id;
-        theAddreRouteOrder.end_address_id = body.end_address_id;
+        theAddreRouteOrder.address_id = body.address_id;
         theAddreRouteOrder.route_id = body.route_id;
         
     

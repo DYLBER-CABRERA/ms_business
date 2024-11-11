@@ -9,6 +9,8 @@ export default class VehiclesController {
         if (params.id) {
             let theVehicles: Vehicles = await Vehicles.findOrFail(params.id)
             await theVehicles.load("operations")
+            await theVehicles.load("routes")
+            await theVehicles.load("insurances")
             return theVehicles;
         } else {
             const data = request.all()
@@ -31,6 +33,8 @@ export default class VehiclesController {
         const body = request.body();
         const theVehicles: Vehicles = await Vehicles.create(body);
         await theVehicles.load("operations");
+        await theVehicles.load("routes")
+        await theVehicles.load("insurances")
         return theVehicles;
     }
 

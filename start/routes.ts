@@ -41,6 +41,11 @@ import './routes/contracts';
 import './routes/operations';
 import './routes/routes';
 import './routes/addreRouteOrders';
+import './routes/quotas';
+import './routes/invoices';
+import './routes/insurances';
+import './routes/vehicleOwners';
+
 
 
 

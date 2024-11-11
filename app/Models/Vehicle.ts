@@ -2,6 +2,8 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Operation from './Operation'
 import Route from './Route'
+import Insurance from './Insurance'
+import VehicleOwner from './VehicleOwner'
 
 
 
@@ -33,9 +35,22 @@ export default class Vehicle extends BaseModel {
   })
   public operations: HasMany<typeof Operation>
 
-  
+//HACEMOS LA RELACION CON ROUTE (RUTAS)  
   @hasMany(() => Route,{
     foreignKey: 'vehicle_id',
   })
   public routes: HasMany <typeof Route>
+
+  //HACEMOS LA RELACION CON INSURECE (SEGUROS)
+
+  @hasMany(() => Insurance,{
+    foreignKey: 'vehicle_id',
+  })
+  public insurances: HasMany <typeof Insurance>
+
+  
+  @hasMany(() => VehicleOwner,{
+    foreignKey: 'vehicle_id',
+  })
+  public vehicleOwners: HasMany <typeof VehicleOwner>
 }

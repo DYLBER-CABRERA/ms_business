@@ -7,6 +7,9 @@ export default class ContractController {
         //Buscar el elemento dado una condición 
         if (params.id) {
             let theContract: Contract = await Contract.findOrFail(params.id)
+            await theContract.load("quotas")
+            await theContract.load("routes")
+
             return theContract;
         } else {
             const data = request.all()
@@ -25,6 +28,8 @@ export default class ContractController {
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const theContract: Contract = await Contract.create(body);
+        await theContract.load("quotas")
+        await theContract.load("routes")
         return theContract;
     }
 

@@ -1,7 +1,8 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column, HasOne, hasOne } from "@ioc:Adonis/Lucid/Orm";
 import Service from "./Service";
 import Driver from "./Driver";
+import Invoice from "./Invoice";
 
 export default class Expense extends BaseModel {
   @column({ isPrimary: true })
@@ -37,6 +38,12 @@ export default class Expense extends BaseModel {
     foreignKey: "driver_id",
   })
   public driver: BelongsTo<typeof Driver>;
+
+  @hasOne(() => Invoice, {
+    foreignKey: "expense_id",
+  })
+  public invoice: HasOne<typeof Invoice>;
+
 
   //!PARA LA RELACION CON EL DUEÑO
   // @belongsTo(() => Owner, {

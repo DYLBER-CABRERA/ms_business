@@ -27,12 +27,12 @@ export default class Driver extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @hasMany(() => Shift, {
+  @hasMany(() => Shift, {  //TURNOS
     foreignKey: "driver_id", //*Clave foranea
   })
   public shift: HasMany<typeof Shift>;
 
-  @hasMany(() => Expense, {
+  @hasMany(() => Expense, {  //GASTOS
     //*El conductor tiene muchos gastos
     foreignKey: "driver_id", //cual es la clave foranea que permite esa relacion
   })

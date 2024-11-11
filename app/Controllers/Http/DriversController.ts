@@ -19,7 +19,9 @@ export default class DriversController {
             headers: { Authorization: request.headers().authorization || "" },
           }
         );
-
+         await theDriver.load("expense");
+         await theDriver.load("shift");
+         await theDriver.load("vehicleDriver");
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
@@ -27,7 +29,7 @@ export default class DriversController {
           );
         }
 
-        return { cliente: theDriver, usuario: userResponse.data };
+        return { driver: theDriver, usuario: userResponse.data };
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {
@@ -48,7 +50,7 @@ export default class DriversController {
 
   public async create({ request, response }: HttpContextContract) {
     try {
-      // Validar datos usando el ClienteValidator
+      // Validar datos usando el driverValidator
       const body = request.body();
 
       // Llamada al microservicio de usuarios
@@ -58,7 +60,7 @@ export default class DriversController {
           headers: { Authorization: request.headers().authorization || "" },
         }
       );
-
+      
       // Verificar si no se encontró información del usuario en el microservicio
       if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
         return response.notFound({

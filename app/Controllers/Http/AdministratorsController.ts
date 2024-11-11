@@ -53,7 +53,7 @@ export default class AdministratorsController {
   ////////////////////////////////////////
   public async create({ request, response }: HttpContextContract) {
     try {
-      // Validar datos usando el ClienteValidator
+      // Validar datos usando el driverValidator
       const body = request.body();
 
       // Llamada al microservicio de usuarios

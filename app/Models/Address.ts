@@ -44,13 +44,9 @@ export default class Address extends BaseModel {
   public municipality: BelongsTo<typeof Municipality>
 
   @hasMany(() => AddreRouteOrder, {
-    foreignKey: 'start_address_id',
+    foreignKey: 'address_id',
   })
-  public startAddressOrders: HasMany<typeof AddreRouteOrder>
+  public AddressOrders: HasMany<typeof AddreRouteOrder>
 
-  @hasMany(() => AddreRouteOrder, {
-    foreignKey: 'end__address_id',
-  })
-  public endAddressOrders: HasMany<typeof AddreRouteOrder>
 
 }

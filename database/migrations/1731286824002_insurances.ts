@@ -1,14 +1,16 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'addre_route_orders'
+  protected tableName = 'insurances'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('address_id').unsigned().references('addresses.id').onDelete('CASCADE')
-     
-     
+      table.string("insurance_type") // Tipo de poliza
+      table.date("start_date") // Fecha de inicio de la poliza
+      table.date("end_date") // Fecha de fin de la poliza
+      table.string("insurance_company") // Compañia de seguros
+      table.integer("vehicle_id").unsigned().references('vehicles.id').onDelete('CASCADE') // Vehiculo asegurado
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
