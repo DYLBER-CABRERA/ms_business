@@ -19,7 +19,8 @@ export default class OwnersController {
             headers: { Authorization: request.headers().authorization || "" },
           }
         );
-
+            await theOwner.load("driver");
+            await theOwner.load("vehicleOwners");
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
@@ -60,6 +61,7 @@ export default class OwnersController {
         }
       );
 
+   
       // Verificar si no se encontró información del usuario en el microservicio
       if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
         return response.notFound({
@@ -70,8 +72,9 @@ export default class OwnersController {
       // Crear el Owner si la validación y la verificación de usuario son exitosas
       await request.validate(OwnerValidator);
       const theOwner: Owner = await Owner.create(body);
-      await theOwner.load("driver");
 
+      await theOwner.load("driver");
+      await theOwner.load("vehicleOwners");
       return theOwner;
     } catch (error) {
       // Si el error es de validación, devolver los mensajes de error de forma legible
@@ -94,6 +97,7 @@ export default class OwnersController {
     theOwner.phone_number = body.phone_number;
     theOwner.driver_id = body.driver_id;
     await theOwner.load("driver");
+    await theOwner.load("vehicleOwners");
 
     return await theOwner.save(); //se confirma a la base de datos el cambio
   }

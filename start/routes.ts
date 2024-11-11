@@ -33,12 +33,19 @@ import "./routes/administrators";
 import "./routes/restaurants";
 import "./routes/hotels";
 import "./routes/vehicleDrivers";
-import "./routes/departments";
-import "./routes/municipalities";
-import "./routes/addresses";
-import "./routes/distrubutionCenters";
-import "./routes/contracts";
-import "./routes/operations";
-import "./routes/routes";
-import "./routes/addreRouteOrders";
-import "./routes/owners";
+import './routes/departments';
+import './routes/municipalities';
+import './routes/addresses';
+import './routes/distrubutionCenters';
+import './routes/contracts';
+import './routes/operations';
+import './routes/routes';
+import './routes/addreRouteOrders';
+import './routes/quotas';
+import './routes/invoices';
+import './routes/insurances';
+import './routes/vehicleOwners';
+
+
+
+

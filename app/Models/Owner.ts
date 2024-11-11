@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from "@ioc:Adonis/Lucid/Orm";
 import Driver from "./Driver";
+import VehicleOwner from "./VehicleOwner";
 
 export default class Owner extends BaseModel {
   @column({ isPrimary: true })
@@ -23,4 +24,13 @@ export default class Owner extends BaseModel {
     foreignKey: "driver_id",
   })
   public driver: BelongsTo<typeof Driver>;
+
+    
+  @hasMany(() => VehicleOwner,{
+    foreignKey: 'owner_id',
+  })
+  public vehicleOwners: HasMany <typeof VehicleOwner>
+
+  
+
 }
