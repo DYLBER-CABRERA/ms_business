@@ -44,6 +44,7 @@ import './routes/addreRouteOrders';
 import './routes/categories'
 import './routes/batches'
 import './routes/clients'
+import './routes/products'
 
 
 
