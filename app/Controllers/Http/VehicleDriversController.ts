@@ -8,8 +8,9 @@ export default class VehicleDriversController {
       let theVehicleDriver: VehicleDriver = await VehicleDriver.findOrFail(
         params.id
       );
-       await theVehicleDriver.load("driver"); //devuelve la info de que administrador tiene ese servicio
-      await theVehicleDriver.load("vehicle")
+      await theVehicleDriver.load("driver"); //devuelve la info de que administrador tiene ese servicio
+      await theVehicleDriver.load("vehicle");
+
       return theVehicleDriver;
     } else {
       const data = request.all();
@@ -27,17 +28,20 @@ export default class VehicleDriversController {
 
     const body = request.body();
     const theVehicleDriver: VehicleDriver = await VehicleDriver.create(body);
+    await theVehicleDriver.load("driver"); //devuelve la info de que administrador tiene ese servicio
+    await theVehicleDriver.load("vehicle");
     return theVehicleDriver;
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theVehicleDriver: VehicleDriver = await VehicleDriver.findOrFail(
       params.id
-    ); //busque el teatro con el identificador
+    );
     const body = request.body(); //leer lo que viene en la carta
-    //!PARA LA RELACION CON VEHICULO
     theVehicleDriver.vehicle_id = body.vehicle_id; //de lo que está en la base de datos, actualice con lo que viene dentro del body
     theVehicleDriver.driver_id = body.driver_id;
+    await theVehicleDriver.load("driver"); //devuelve la info de que administrador tiene ese servicio
+    await theVehicleDriver.load("vehicle");
     return await theVehicleDriver.save(); //se confirma a la base de datos el cambio
   }
 
