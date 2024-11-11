@@ -10,6 +10,8 @@ export default class Driver extends BaseModel {
   public id: number;
   //*NO TIENE NOMBRE NI CORREO PORQUE SE HEREDA DEL USUARIO
 
+
+  
   @column()
   public license_number: string; // Número de licencia del conductor
 
