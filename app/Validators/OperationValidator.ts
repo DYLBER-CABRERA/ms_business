@@ -5,8 +5,10 @@ export default class OperationValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    start_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }),
-    end_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }),
+    start_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }, [rules.after('today')]),
+
+    end_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }, [rules.after('today'), rules.afterField('start_date')]),
+    
     municipality_id: schema.number([
       rules.exists({ table: 'municipalities', column: 'id' }),
       rules.required()
@@ -21,13 +23,17 @@ export default class OperationValidator {
   })
 
   public messages: CustomMessages = {
-    'start_date.date': 'La fecha de inicio debe tener el formato yyyy-MM-dd HH:mm:ss.',
-    'end_date.date': 'La fecha de fin debe tener el formato yyyy-MM-dd HH:mm:ss.',
+    'start_date.required': 'La fecha de inicio es obligatoria.',
+    'start_date.after': 'La fecha de inicio debe ser posterior a la fecha actual.',
+    'end_date.required': 'La fecha de fin es obligatoria.',
+    'end_date.after': 'La fecha de fin debe ser posterior a la fecha actual.',
+    'end_date.afterField': 'La fecha de fin debe ser posterior a la fecha de inicio.',
     'municipality_id.exists': 'El municipio especificado no existe.',
-    'municipality_id.unsigned': 'El ID del municipio no puede ser negativo.',
-    'municipality_id.required': 'El ID del municipio es un campo obligatorio.',
+    'municipality_id.required': 'El ID del municipio es obligatorio.',
     'vehicle_id.exists': 'El vehículo especificado no existe.',
     'vehicle_id.unsigned': 'El ID del vehículo no puede ser negativo.',
-    'vehicle_id.required': 'El ID del vehículo es un campo obligatorio.'
+    'vehicle_id.required': 'El ID del vehículo es obligatorio.',
+    'vehicle_id.unique': 'El vehículo ya está en uso en otra operación.'
+
   }
 }

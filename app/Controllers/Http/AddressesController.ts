@@ -11,6 +11,7 @@ export default class AddressesController {
             await theAddress.load("municipality")
             await theAddress.load("distributionCenter")
             await theAddress.load("AddressOrders")
+          
          
             return theAddress;//retorna el teatro
         } else {

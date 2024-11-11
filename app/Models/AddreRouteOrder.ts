@@ -8,10 +8,10 @@ export default class AddreRouteOrder extends BaseModel {
   public id: number
 
   @column()
-  address_id: number
+  address_id: number //direccion ID
 
   @column()
-  route_id: number
+  route_id: number //ruta ID
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -33,8 +33,6 @@ export default class HotelsController {
     const body = request.body(); //leer lo que viene en la carta
 
     theHotel.stars = body.stars; //de lo que está en la base de datos, actualice con lo que viene dentro del body
-    theHotel.name = body.name;
-    theHotel.address = body.address;
     theHotel.service_id = body.service_id;
 
     return await theHotel.save(); //se confirma a la base de datos el cambio

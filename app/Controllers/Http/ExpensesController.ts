@@ -34,7 +34,6 @@ export default class ExpensesController {
     const body = request.body(); //leer lo que viene en la carta
 
     theExpense.amount = body.amount; //de lo que está en la base de datos, actualice con lo que viene dentro del body
-    theExpense.description = body.description;
     theExpense.service_id = body.service_id;
     theExpense.driver_id = body.driver_id;
 

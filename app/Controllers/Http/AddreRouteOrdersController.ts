@@ -33,7 +33,7 @@ export default class AddreRouteOrdersController {
         const body = request.body();//toma la carta, lee el cuerpo del la carta y lo agrega a la variable body
         const theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.create(body);//await es esperando dentro del hilo a que la clase addrRouteOrder la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene el location y la capacidad y lo colocamos en la variable theAdress de tipo addrRouteOrder
         await theAddreRouteOrder.load("addresses")
-        await theAddreRouteOrder.load("route")//cargamos la relacion de departamento
+        await theAddreRouteOrder.load("route")//cargamos la relacion de rutas
         
         return theAddreRouteOrder; //retornamos el teatro
     }
@@ -43,7 +43,8 @@ export default class AddreRouteOrdersController {
         const body = request.body();
         theAddreRouteOrder.address_id = body.address_id;
         theAddreRouteOrder.route_id = body.route_id;
-        
+        await theAddreRouteOrder.load("addresses")
+        await theAddreRouteOrder.load("route")//cargamos la relacion de rutas
     
         return await theAddreRouteOrder.save();
     }

@@ -7,9 +7,8 @@ export default class VehicleOwnersController {
         //Buscar el elemento dado una condición 
         if (params.id) {
             let theVehicleOwner: VehicleOwner = await VehicleOwner.findOrFail(params.id);
-            
-            //await theVehicleOwner.load("contracts")
-            //await theVehicleOwner.load("invoice")
+            await theVehicleOwner.load("owner")
+            await theVehicleOwner.load("vehicle")
 
             return theVehicleOwner;
           } else {
@@ -29,8 +28,8 @@ export default class VehicleOwnersController {
         await request.validate(VehicleOwnerValidator);
         const body = request.body();
         const theVehicleOwner: VehicleOwner = await VehicleOwner.create(body);
-        //await theVehicleOwner.load("contracts")
-        //await theVehicleOwner.load("invoice")
+        await theVehicleOwner.load("owner")
+        await theVehicleOwner.load("vehicle")
 
        
         return theVehicleOwner;
@@ -43,6 +42,9 @@ export default class VehicleOwnersController {
         theVehicleOwner.ownership_percentage = body.ownership_percentage;
         theVehicleOwner.owner_id = body.owner_id;
         theVehicleOwner.vehicle_id = body.vehicle_id;
+
+        await theVehicleOwner.load("owner")
+        await theVehicleOwner.load("vehicle")
         return await theVehicleOwner.save();
     }
 

@@ -1,5 +1,7 @@
 import { DateTime } from "luxon";
-import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import Service from "./Service";
+//!HACER LA HERENCIA DE SERVICIO : HEREDA LOS ATRIBUTOS DE ESA CLASE MAS LAS OTRAS
 
 export default class Hotel extends BaseModel {
   @column({ isPrimary: true })
@@ -8,10 +10,6 @@ export default class Hotel extends BaseModel {
   @column()
   public stars: number;
   @column()
-  public name: string;
-  @column()
-  public address: string;
-  @column()
   public service_id: number;
 
   @column.dateTime({ autoCreate: true })
@@ -19,4 +17,9 @@ export default class Hotel extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @belongsTo(() => Service, {  //*hotel -servicio
+    foreignKey: "service_id",
+  })
+  public service: BelongsTo<typeof Service>;
 }

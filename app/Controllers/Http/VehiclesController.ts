@@ -11,6 +11,8 @@ export default class VehiclesController {
             await theVehicles.load("operations")
             await theVehicles.load("routes")
             await theVehicles.load("insurances")
+            await theVehicles.load("vehicleOwners")
+         
             return theVehicles;
         } else {
             const data = request.all()
@@ -35,6 +37,8 @@ export default class VehiclesController {
         await theVehicles.load("operations");
         await theVehicles.load("routes")
         await theVehicles.load("insurances")
+        await theVehicles.load("vehicleOwners")
+
         return theVehicles;
     }
 
@@ -45,6 +49,11 @@ export default class VehiclesController {
     theVehicles.model = body.model;
     theVehicles.capacity = body.capacity;
     theVehicles.cargo_type = body.cargo_type;
+    await theVehicles.load("operations");
+    await theVehicles.load("routes")
+    await theVehicles.load("insurances")
+    await theVehicles.load("vehicleOwners")
+
 
     return await theVehicles.save();
   }
