@@ -1,13 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Product from './Product'
+import Company from './Company'
 
 export default class Client extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public id_type:string
+  public id_type: string
 
   @column()
   public id_number: string
@@ -20,7 +21,7 @@ export default class Client extends BaseModel {
 
   @column()
   public user_id: string
-  
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -31,4 +32,10 @@ export default class Client extends BaseModel {
     foreignKey: "client_id", //Clave foránea que relaciona la identidad dominada
   })
   public batches: HasMany<typeof Product>;
+
+  //Relacion de 1 a 1 
+  @hasOne(() => Company, {
+    foreignKey: "client_id", //Clave foránea que relaciona la identidad dominada
+  })
+  public companies: HasOne<typeof Company>;
 }
