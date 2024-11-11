@@ -25,8 +25,8 @@ Route.get("/", async () => {
 });
 // Importaciones de rutas
 import "./routes/vehicles";
-import "./routes/drivers"; //Registro de rutas del conductor
-import "./routes/shifts"; //Registro de los turnos del conductor
+import "./routes/drivers";
+import "./routes/shifts"; 
 import "./routes/services";
 import "./routes/expenses";
 import "./routes/administrators";
@@ -42,6 +42,7 @@ import './routes/operations';
 import './routes/routes';
 import './routes/addreRouteOrders';
 import './routes/categories'
+import './routes/batches'
 
 
 

@@ -20,7 +20,7 @@ export default class Category extends BaseModel {
   public subCategories: HasMany<typeof Category>
 
   @belongsTo(() => Category, {
-    foreignKey: 'parentCategory', // Clave foránea que relaciona con la categoría padre
+    foreignKey: 'parentCategory', //Clave foránea que relaciona con la categoría padre
   })
   public parent: BelongsTo<typeof Category>
 

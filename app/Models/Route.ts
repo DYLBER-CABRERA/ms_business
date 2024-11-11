@@ -3,6 +3,7 @@ import { BaseModel, belongsTo, column, BelongsTo, hasMany, HasMany } from '@ioc:
 import Contract from './Contract'
 import Vehicle from './Vehicle';
 import AddreRouteOrder from './AddreRouteOrder';
+import Batch from './Batch';
 
 
 export default class Route extends BaseModel {
@@ -33,20 +34,22 @@ export default class Route extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => Contract, {
-    foreignKey: 'contract_id'
-
-  })
-  public contract: BelongsTo<typeof Contract>
-
-  @belongsTo(() => Vehicle, {
-    foreignKey: 'vehicle_id'
-
-  })
-  public Vehicle: BelongsTo<typeof Vehicle>
-
   @hasMany(() => AddreRouteOrder, {
-    foreignKey: "route_id", //cual es la clave foranea que permite esa relacion
+    foreignKey: "route_id", //Clave foránea que relaciona las categorías dominada
   })
   public addreRouteOrders: HasMany<typeof AddreRouteOrder>;
+
+  @hasMany(() => Batch, {
+    foreignKey: "route_id", //Clave foránea que relaciona la categoría dominada
+  })
+  public batches: HasMany<typeof Batch>;
+
+  @belongsTo(() => Vehicle, {
+    foreignKey: 'vehicle_id' //Clave foránea que relaciona con la categoría dominante
+  })
+  public Vehicle: BelongsTo<typeof Vehicle>
+  @belongsTo(() => Contract, {
+    foreignKey: 'contract_id' //Clave foránea que relaciona las categorías dominada
+  })
+  public contract: BelongsTo<typeof Contract>
 }
