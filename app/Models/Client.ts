@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Product from './Product'
 import Company from './Company'
+import NaturalPerson from './NaturalPerson'
 
 export default class Client extends BaseModel {
   @column({ isPrimary: true })
@@ -38,4 +39,11 @@ export default class Client extends BaseModel {
     foreignKey: "client_id", //Clave foránea que relaciona la identidad dominada
   })
   public companies: HasOne<typeof Company>;
+
+  //Relacion de 1 a 1 
+  @hasOne(() => NaturalPerson, {
+    foreignKey: "client_id", //Clave foránea que relaciona la identidad dominada
+  })
+  public NaturalPeople: HasOne<typeof NaturalPerson>;
 }
+

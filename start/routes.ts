@@ -47,6 +47,7 @@ import './routes/clients'
 import './routes/products'
 import './routes/productCategories'
 import './routes/companies'
+import './routes/naturalPeople'
 
 
 

@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import NaturalPerson from './NaturalPerson'
 
 export default class Company extends BaseModel {
   @column({ isPrimary: true })
@@ -20,4 +21,10 @@ export default class Company extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  //Relacion de 1 a 1 
+  @hasOne(() => NaturalPerson, {
+    foreignKey: "company_id", //Clave foránea que relaciona la identidad dominada
+  })
+  public NaturalPeople: HasOne<typeof NaturalPerson>;
 }
+
