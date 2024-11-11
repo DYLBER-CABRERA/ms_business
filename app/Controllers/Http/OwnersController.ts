@@ -1,19 +1,20 @@
-import { Exception } from "@adonisjs/core/build/standalone";
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import Driver from "App/Models/Driver";
-import axios from "axios";
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Env from "@ioc:Adonis/Core/Env";
-import DriverValidator from "App/Validators/DriverValidator";
+import Owner from "App/Models/Owner";
+import axios from 'axios';
+import { Exception } from '@adonisjs/core/build/standalone';
+import OwnerValidator from 'App/Validators/OwnerValidator';
 
-export default class DriversController {
+export default class OwnersController {
   public async find({ request, params }: HttpContextContract) {
-     
+    //let theOwner
+
     try {
       if (params.id) {
-        let theDriver: Driver = await Driver.findOrFail(params.id);
+        let theOwner: Owner = await Owner.findOrFail(params.id);
         // Llamada al microservicio de usuarios
         const userResponse = await axios.get(
-          `${Env.get("MS_SECURITY")}/users/${theDriver.user_id}`,
+          `${Env.get("MS_SECURITY")}/users/${theOwner.user_id}`,
           {
             headers: { Authorization: request.headers().authorization || "" },
           }
@@ -25,20 +26,16 @@ export default class DriversController {
             404
           );
         }
-        await theDriver.load("expense")
-        await theDriver.load("owner");
-        await theDriver.load("shift");
-        await theDriver.load("vehicleDriver");
 
-        return { cliente: theDriver, usuario: userResponse.data };
+        return { cliente: theOwner, usuario: userResponse.data };
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {
           const page = request.input("page", 1);
           const perPage = request.input("per_page", 20);
-          return await Driver.query().paginate(page, perPage); //cuando hace la consulta se hace en ese rango de pagina
+          return await Owner.query().paginate(page, perPage); //cuando hace la consulta se hace en ese rango de pagina
         } else {
-          return await Driver.query(); //es para que espere a la base de datos
+          return await Owner.query(); //es para que espere a la base de datos
         }
       }
     } catch (error) {
@@ -69,10 +66,10 @@ export default class DriversController {
             "No se encontró información de usuario, verifique que el código sea correcto",
         });
       }
-      // Crear el driver si la validación y la verificación de usuario son exitosas
-      await request.validate(DriverValidator);
-      const theDriver: Driver = await Driver.create(body);
-      return theDriver;
+      // Crear el Owner si la validación y la verificación de usuario son exitosas
+      await request.validate(OwnerValidator);
+      const theOwner: Owner = await Owner.create(body);
+      return theOwner;
     } catch (error) {
       // Si el error es de validación, devolver los mensajes de error de forma legible
       if (error.messages) {
@@ -87,20 +84,19 @@ export default class DriversController {
   }
 
   public async update({ params, request }: HttpContextContract) {
-    const theDriver: Driver = await Driver.findOrFail(params.id); //busque el teatro con el identificador
+    const theOwner: Owner = await Owner.findOrFail(params.id); //busque el teatro con el identificador
     const body = request.body(); //leer lo que viene en la carta
 
-    theDriver.user_id = body.user_id;
-    theDriver.license_number = body.license_number;
-    theDriver.expiration_date = body.expiration_date;
-    theDriver.phone_number = body.phone_number;
+    theOwner.user_id = body.user_id;
+    theOwner.phone_number = body.phone_number;
+    theOwner.driver_id = body.driver_id;
 
-    return await theDriver.save(); //se confirma a la base de datos el cambio
+    return await theOwner.save(); //se confirma a la base de datos el cambio
   }
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Driver = await Driver.findOrFail(params.id); //buscarlo
+    const theTheater: Owner = await Owner.findOrFail(params.id); //buscarlo
     response.status(204);
 
     return await theTheater.delete(); //el teatro que se encontro, eliminelo

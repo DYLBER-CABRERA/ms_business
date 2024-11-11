@@ -5,11 +5,20 @@ export default class ServiceValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    amount: schema.number([
-      rules.unsigned(), //que no sea negativo
-      rules.range(50, 100000000),
-    ]), //rango
 
+    name: schema.string([
+      rules.required(), // Asegura que el campo no esté vacío
+      rules.alphaNum({
+        allow: ["space", "underscore", "dash"], //es decir que soporta espacios guion bajo
+      }),
+    ]),
+
+    address: schema.string([
+      rules.required(), // Asegura que el campo no esté vacío
+      rules.alphaNum({
+        allow: ["space", "underscore", "dash"], //es decir que soporta espacios guion bajo
+      }),
+    ]),
     description: schema.string([
       rules.required(), // Asegura que el campo no esté vacío
 
