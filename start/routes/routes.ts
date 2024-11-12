@@ -1,4 +1,3 @@
-//rutas para activar los controladores
 import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
     Route.get("/routes", "RoutesController.find");

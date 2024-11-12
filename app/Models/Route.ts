@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column , BelongsTo, hasMany, HasMany} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, column, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Contract from './Contract'
 import Vehicle from './Vehicle';
 import AddreRouteOrder from './AddreRouteOrder';
+import Batch from './Batch';
 
 
 export default class Route extends BaseModel {
@@ -33,21 +34,23 @@ export default class Route extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(()=> Contract, {
-    foreignKey: 'contract_id'
-
+  @hasMany(() => AddreRouteOrder, {
+    foreignKey: "route_id", //Clave foránea que relaciona las categorías dominada
   })
-  public contract: BelongsTo <typeof Contract>
+  public addreRouteOrders: HasMany<typeof AddreRouteOrder>;
 
-  @belongsTo(()=> Vehicle, {
-    foreignKey: 'vehicle_id'
-
+  @hasMany(() => Batch, {
+    foreignKey: "route_id", //Clave foránea que relaciona la categoría dominada
   })
-  public Vehicle: BelongsTo <typeof Vehicle>
+  public batches: HasMany<typeof Batch>;
+
+  @belongsTo(() => Vehicle, {
+    foreignKey: 'vehicle_id' //Clave foránea que relaciona con la categoría dominante
+  })
+  public Vehicle: BelongsTo<typeof Vehicle>
   
- @hasMany(() => AddreRouteOrder, {
-   
-    foreignKey: "route_id", //cual es la clave foranea que permite esa relacion
+  @belongsTo(() => Contract, {
+    foreignKey: 'contract_id' //Clave foránea que relaciona las categorías dominada
   })
-  public addreRouteOrders: HasMany<typeof AddreRouteOrder>; 
+  public contract: BelongsTo<typeof Contract>
 }
