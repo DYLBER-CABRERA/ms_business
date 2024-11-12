@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.double('weight')
       table.integer('route_id').unsigned().references('routes.id')
-      table.integer('addre_route_orders_id').unsigned().references('addre_route_orders_id.id')
+      table.integer('addre_route_orders').unsigned().references('addre_route_orders.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
