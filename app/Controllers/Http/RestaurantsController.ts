@@ -31,7 +31,7 @@ export default class RestaurantsController {
   }
 
   public async update({ params, request }: HttpContextContract) {
-    const theRestaurant: Restaurant = await Restaurant.findOrFail(params.id); //busque el teatro con el identificador
+    const theRestaurant: Restaurant = await Restaurant.findOrFail(params.id); //busque el restaurante con el identificador
     const body = request.body(); //leer lo que viene en la carta
 
     theRestaurant.cuisine_type = body.cuisine_type;
@@ -43,9 +43,9 @@ export default class RestaurantsController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Restaurant = await Restaurant.findOrFail(params.id); //buscarlo
+    const theRestaurant: Restaurant = await Restaurant.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theRestaurant.delete();
   }
 }

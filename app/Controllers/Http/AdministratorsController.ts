@@ -103,9 +103,9 @@ export default class AdministratorsController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Administrator = await Administrator.findOrFail(params.id); //buscarlo
+    const theAdministrator: Administrator = await Administrator.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theAdministrator.delete(); //el teatro que se encontro, eliminelo
   }
 }

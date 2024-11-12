@@ -47,9 +47,11 @@ export default class VehicleDriversController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: VehicleDriver = await VehicleDriver.findOrFail(params.id); //buscarlo
+    const theVehicleDriver: VehicleDriver = await VehicleDriver.findOrFail(
+      params.id
+    ); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theVehicleDriver.delete(); //el teatro que se encontro, eliminelo
   }
 }

@@ -7,7 +7,6 @@ import DriverValidator from "App/Validators/DriverValidator";
 
 export default class DriversController {
   public async find({ request, params }: HttpContextContract) {
-     
     try {
       if (params.id) {
         let theDriver: Driver = await Driver.findOrFail(params.id);
@@ -18,16 +17,16 @@ export default class DriversController {
             headers: { Authorization: request.headers().authorization || "" },
           }
         );
-         await theDriver.load("expense");
-         await theDriver.load("shift");
-         await theDriver.load("vehicleDriver");
+        await theDriver.load("expense");
+        await theDriver.load("shift");
+        await theDriver.load("vehicleDriver");
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
             404
           );
         }
-        await theDriver.load("expense")
+        await theDriver.load("expense");
         await theDriver.load("owner");
         await theDriver.load("shift");
         await theDriver.load("vehicleDriver");
@@ -63,7 +62,7 @@ export default class DriversController {
           headers: { Authorization: request.headers().authorization || "" },
         }
       );
-      
+
       // Verificar si no se encontró información del usuario en el microservicio
       if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
         return response.notFound({
@@ -102,9 +101,9 @@ export default class DriversController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Driver = await Driver.findOrFail(params.id); //buscarlo
+    const theDriver: Driver = await Driver.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theDriver.delete(); //el teatro que se encontro, eliminelo
   }
 }
