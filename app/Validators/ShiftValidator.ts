@@ -27,5 +27,11 @@ export default class ShiftValidator {
     ]),
   });
 
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "location.required": "La ubicación es obligatoria.",
+    "start_time.format": "La fecha de inicio está en el formato incorrecto.",
+    "end_time.format": "La fecha final está en el formato incorrecto.",
+
+    "driver_id.exists": "El id del conductor no existe.",
+  };
 }
