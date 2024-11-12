@@ -4,7 +4,6 @@ import ProductCategoryValidator from '../../Validators/ProductCategoryValidator'
 
 export default class ProductCategoriesController {
     public async find({ request, params }: HttpContextContract) {
-        //Buscar el elemento dado una condición 
         if (params.id) {
             let theProductCategory: ProductCategory = await ProductCategory.findOrFail(params.id)
             await theProductCategory.load("category")
@@ -15,9 +14,9 @@ export default class ProductCategoriesController {
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await ProductCategory.query().preload("category").preload("product").paginate(page, perPage)
+                return await ProductCategory.query().paginate(page, perPage)
             } else {
-                return await ProductCategory.query().preload("category").preload("product")
+                return await ProductCategory.query()
             }
         }
     }
@@ -36,12 +35,16 @@ export default class ProductCategoriesController {
         const body = request.body();
         theProductCategory.category_id = body.category_id;
         theProductCategory.product_id = body.product_id;
+        await theProductCategory.load("category")
+        await theProductCategory.load("product")
         return await theProductCategory.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theProductCategory: ProductCategory = await ProductCategory.findOrFail(params.id);
-        response.status(204);
-        return await theProductCategory.delete();
+        await theProductCategory.delete();
+        return response.status(200).json({
+            message: 'Categoría de producto eliminada con éxito',
+        });
     }
 }

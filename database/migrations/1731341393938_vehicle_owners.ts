@@ -10,10 +10,6 @@ export default class extends BaseSchema {
       table.integer('ownership_percentage')
       table.integer('owner_id').unsigned().references('owners.id').onDelete('CASCADE')
       table.integer('vehicle_id').unsigned().references('vehicles.id').onDelete('CASCADE')
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

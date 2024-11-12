@@ -12,6 +12,9 @@ export default class ClientsController {
             if (params.id) {
                 let theClient: Client = await Client.findOrFail(params.id);
                 // Se llama al MS_SECURITY para validar a los usuarios
+                await theClient.load('NaturalPeople')
+                await theClient.load('companies')
+                await theClient.load('contract')
                 const userResponse = await axios.get(
                     `${Env.get("MS_SECURITY")}/users/${theClient.user_id}`,
                     {
@@ -63,6 +66,9 @@ export default class ClientsController {
             // Crear el driver si la validación y la verificación de usuario son exitosas
             await request.validate(ClientValidator);
             const theClient: Client = await Client.create(body);
+            await theClient.load('NaturalPeople')
+            await theClient.load('companies')
+            await theClient.load('contract')
             return theClient;
         } catch (error) {
             // Si el error es de validación, devolver los mensajes de error de forma legible
@@ -85,6 +91,9 @@ export default class ClientsController {
         theClient.id_number = body.id_number;
         theClient.phone_number = body.phone_number;
         theClient.order_count = body.order_count;
+        await theClient.load('NaturalPeople')
+        await theClient.load('companies')
+        await theClient.load('contract')
         return await theClient.save();
     }
 

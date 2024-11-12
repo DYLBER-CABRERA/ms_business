@@ -12,7 +12,6 @@ export default class VehiclesController {
             await theVehicles.load("routes")
             await theVehicles.load("insurances")
             await theVehicles.load("vehicleOwners")
-         
             return theVehicles;
         } else {
             const data = request.all()
@@ -23,10 +22,7 @@ export default class VehiclesController {
             } else {
                 return await Vehicles.query()
             }
-
         }
-
-
     }
   
 
@@ -38,7 +34,6 @@ export default class VehiclesController {
         await theVehicles.load("routes")
         await theVehicles.load("insurances")
         await theVehicles.load("vehicleOwners")
-
         return theVehicles;
     }
 
@@ -53,14 +48,14 @@ export default class VehiclesController {
     await theVehicles.load("routes")
     await theVehicles.load("insurances")
     await theVehicles.load("vehicleOwners")
-
-
     return await theVehicles.save();
   }
 
   public async delete({ params, response }: HttpContextContract) {
     const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
-    response.status(204);
-    return await theVehicles.delete();
+    await theVehicles.delete();
+    return response.status(200).json({
+      message: 'Vehículo eliminado con éxito'
+    });
   }
 }

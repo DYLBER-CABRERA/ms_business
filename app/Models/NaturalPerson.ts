@@ -28,11 +28,13 @@ export default class NaturalPerson extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  //Relación de 1 a 1
   @belongsTo(() => Company,{
     foreignKey: 'company_id'
   })
   public Company: BelongsTo<typeof Company>
   
+  //Relación de 1 a N
   @belongsTo(() => Client,{
     foreignKey: 'client_id'
   })

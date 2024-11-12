@@ -10,10 +10,6 @@ export default class extends BaseSchema {
       table.dateTime("end_time");
       table.string("location");
       table.integer("driver_id").unsigned().references("drivers.id");
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });
