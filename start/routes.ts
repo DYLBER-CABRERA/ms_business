@@ -25,37 +25,31 @@ Route.get("/", async () => {
 });
 // Importaciones de rutas
 import "./routes/vehicles";
+import "./routes/owners";
 import "./routes/drivers";
-import "./routes/shifts"; 
+import "./routes/shifts";
 import "./routes/services";
 import "./routes/expenses";
 import "./routes/administrators";
 import "./routes/restaurants";
 import "./routes/hotels";
 import "./routes/vehicleDrivers";
-import './routes/departments';
-import './routes/municipalities';
-import './routes/addresses';
-import './routes/distrubutionCenters';
-import './routes/contracts';
-import './routes/operations';
-import './routes/routes';
-import './routes/addreRouteOrders';
-<<<<<<< HEAD
-import './routes/categories'
-import './routes/batches'
-import './routes/clients'
-import './routes/products'
-import './routes/productCategories'
-import './routes/companies'
-import './routes/naturalPeople'
-=======
-import './routes/quotas';
-import './routes/invoices';
-import './routes/insurances';
-import './routes/vehicleOwners';
-
->>>>>>> origin/main
-
-
-
+import "./routes/departments";
+import "./routes/municipalities";
+import "./routes/addresses";
+import "./routes/distrubutionCenters";
+import "./routes/contracts";
+import "./routes/operations";
+import "./routes/routes";
+import "./routes/addreRouteOrders";
+import "./routes/categories";
+import "./routes/batches";
+import "./routes/clients";
+import "./routes/products";
+import "./routes/productCategories";
+import "./routes/companies";
+import "./routes/naturalPeople";
+import "./routes/quotas";
+import "./routes/invoices";
+import "./routes/insurances";
+import "./routes/vehicleOwners";

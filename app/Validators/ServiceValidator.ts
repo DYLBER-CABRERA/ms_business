@@ -5,7 +5,6 @@ export default class ServiceValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-
     name: schema.string([
       rules.required(), // Asegura que el campo no esté vacío
       rules.alphaNum({
@@ -34,5 +33,12 @@ export default class ServiceValidator {
     }),
   });
 
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "name.required": "El nombre es obligatorio.",
+    "address.required": "La dirección es obligatoria.",
+    "description.required": "La descripción es obligatoria.",
+    "date.format": "El formato de la fecha es incorrecto.",
+
+    "driver_id.exists": "El id del conductor no existe.",
+  };
 }
