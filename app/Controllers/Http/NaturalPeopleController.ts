@@ -39,12 +39,16 @@ export default class NaturalPeopleController {
         theNaturalPerson.birth_date = body.birth_date;
         theNaturalPerson.company_id = body.company_id;
         theNaturalPerson.client_id = body.client_id
+        await theNaturalPerson.load('Company');
+        await theNaturalPerson.load('client')
         return await theNaturalPerson.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theNaturalPerson: NaturalPerson = await NaturalPerson.findOrFail(params.id);
-        response.status(204);
-        return await theNaturalPerson.delete();
-    }
+        await theNaturalPerson.delete();
+        return response.status(200).json({
+            message: 'Persona natural eliminada con éxito'
+        });
+}
 }
