@@ -14,7 +14,7 @@ export default class Batch extends BaseModel {
   public route_id: number
 
   @column()
-  public addre_route_orders_id: number
+  public addre_route_orders: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

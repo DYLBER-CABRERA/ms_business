@@ -34,7 +34,7 @@ export default class BatchesController {
         const body = request.body();
         theBatch.weight = body.weight;
         theBatch.route_id = body.route_id;
-        theBatch.addre_route_orders_id = body.addre_route_orders_id;
+        theBatch.addre_route_orders = body.addre_route_orders;
         await theBatch.load("route")
         return await theBatch.save();
     }
