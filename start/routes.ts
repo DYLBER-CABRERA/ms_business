@@ -41,6 +41,14 @@ import './routes/contracts';
 import './routes/operations';
 import './routes/routes';
 import './routes/addreRouteOrders';
+import './routes/categories'
+import './routes/batches'
+import './routes/owners'
+import './routes/clients'
+import './routes/products'
+import './routes/productCategories'
+import './routes/companies'
+import './routes/naturalPeople'
 import './routes/quotas';
 import './routes/invoices';
 import './routes/insurances';
