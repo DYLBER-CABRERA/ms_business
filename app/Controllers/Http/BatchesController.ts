@@ -4,7 +4,6 @@ import BatchValidator from 'App/Validators/BatchValidator'
 
 export default class BatchesController {
     public async find({ request, params }: HttpContextContract) {
-        //Buscar el elemento dado una condición 
         if (params.id) {
             let theBatch: Batch = await Batch.findOrFail(params.id)
             await theBatch.load("route")
@@ -14,9 +13,9 @@ export default class BatchesController {
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Batch.query().preload("route").preload("route").paginate(page, perPage)
+                return await Batch.query().paginate(page, perPage)
             } else {
-                return await Batch.query().preload("route").preload("route")
+                return await Batch.query()
             }
         }
 
@@ -36,6 +35,7 @@ export default class BatchesController {
         theBatch.weight = body.weight;
         theBatch.route_id = body.route_id;
         theBatch.addre_route_orders_id = body.addre_route_orders_id;
+        await theBatch.load("route")
         return await theBatch.save();
     }
 

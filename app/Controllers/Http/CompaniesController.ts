@@ -6,6 +6,7 @@ export default class CompaniesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theCompany: Company = await Company.findOrFail(params.id)
+            await theCompany.load('NaturalPeople')
             return theCompany;
         } else {
             const data = request.all()
@@ -23,6 +24,7 @@ export default class CompaniesController {
         await request.validate(CompanyValidator);
         const body = request.body();
         const theCompany: Company = await Company.create(body);
+        await theCompany.load('NaturalPeople')
         return theCompany;
     }
 
@@ -32,13 +34,16 @@ export default class CompaniesController {
         theCompany.company_type = body.company_type;
         theCompany.fiscal_address = body.fiscal_address;
         theCompany.client_id = body.client_id
+        await theCompany.load('NaturalPeople')
         return await theCompany.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theCompany: Company = await Company.findOrFail(params.id);
-        response.status(204);
-        return await theCompany.delete();
+        await theCompany.delete();
+        return response.status(200).json({
+            message: 'Compañía eliminada con éxito',
+        });
     }
 
 }

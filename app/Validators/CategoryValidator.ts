@@ -7,7 +7,9 @@ export default class CategoryValidator {
   public schema = schema.create({
     name: schema.string({}, [
       rules.required(),
-      rules.alphaNum({ allow: ['space', 'underscore', 'dash'] })
+      rules.alphaNum({ allow: ['space', 'underscore', 'dash'] }),
+      rules.unique({ table: 'categories', column: 'name' }) 
+
     ]),
 
     description: schema.string({}, [

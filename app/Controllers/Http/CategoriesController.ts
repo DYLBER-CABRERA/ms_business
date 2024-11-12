@@ -7,26 +7,27 @@ export default class CategoriesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theCategory: Category = await Category.findOrFail(params.id)
-            await theCategory.load("parent")
+            await theCategory.load("parent") //Relación con la categoria padre
+            await theCategory.load("subCategories") //Relación con las subcategorias
             return theCategory;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Category.query().paginate(page, perPage)
+                const category = await Category.query().paginate(page, perPage)
+                return category
             } else {
                 return await Category.query()
             }
-
         }
-
     }
     public async create({ request }: HttpContextContract) {
-        await request.validate(CategoryValidator);//valida el request con el CategoryValidator
-        const body = request.body();//toma la carta, lee el cuerpo del la carta y lo agrega a la variable body
-        const theCategory: Category = await Category.create(body);//await es esperando dentro del hilo a que la clase Category la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene el location y la capacidad y lo colocamos en la variable theAdress de tipo Category
+        await request.validate(CategoryValidator);//Validacion de los datos para la creacion
+        const body = request.body();
+        const theCategory: Category = await Category.create(body);
         await theCategory.load("parent")
+        await theCategory.load("subCategories")
         return theCategory;
     }
 
@@ -36,12 +37,17 @@ export default class CategoriesController {
         theCategory.name = body.name;
         theCategory.description = body.description;
         theCategory.parentCategory = body.parentCategory;
-        return await theCategory.save();
+        await theCategory.load("parent")
+        await theCategory.load("subCategories")
+        await theCategory.save();
+        return theCategory
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theCategory: Category = await Category.findOrFail(params.id);
-        response.status(204);
-        return await theCategory.delete();
+        await theCategory.delete();
+        return response.status(200).json({
+            message: 'Categoría eliminada con éxito',
+        });
     }
 }

@@ -5,9 +5,9 @@ import ContractValidator from 'App/Validators/ContractValidator';
 
 export default class ContractController {
     public async find({ request, params }: HttpContextContract) {
-        //Buscar el elemento dado una condición 
         if (params.id) {
             let theContract: Contract = await Contract.findOrFail(params.id)
+            await theContract.load('routes') 
             return theContract;
         } else {
             const data = request.all()
@@ -18,9 +18,7 @@ export default class ContractController {
             } else {
                 return await Contract.query()
             }
-
         }
-
     }
 
     public async create({ request }: HttpContextContract) {
@@ -41,7 +39,9 @@ export default class ContractController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theContract: Contract = await Contract.findOrFail(params.id);
-            response.status(204);
-            return await theContract.delete();
+        await theContract.delete();
+        return response.status(200).json({
+            message: 'Contrato eliminado con éxito',
+        });
     }
 }

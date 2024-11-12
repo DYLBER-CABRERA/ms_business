@@ -8,12 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.dateTime('start_date')
       table.dateTime('end_date')
-      table.integer('client_id')
-    
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
+      table.integer('client_id').unsigned().references('clients.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

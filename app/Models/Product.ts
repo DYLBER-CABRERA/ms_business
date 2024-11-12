@@ -33,8 +33,9 @@ export default class Product extends BaseModel {
   })
   public productCategory: HasMany<typeof ProductCategory>;
 
+  //Relacion 1 a N
   @belongsTo(() => Client,{
-    foreignKey: 'client_id'//Clave foránea que relaciona con la clase dominante
+    foreignKey: 'client_id'//Clave foránea que relaciona con la identidad dominante
   })
   public client: BelongsTo<typeof Client>
 

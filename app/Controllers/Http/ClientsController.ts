@@ -78,20 +78,21 @@ export default class ClientsController {
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theClient: Client = await Client.findOrFail(params.id); //busque el teatro con el identificador
-        const body = request.body(); //leer lo que viene en la carta
+        const theClient: Client = await Client.findOrFail(params.id);
+        const body = request.body();
         theClient.user_id = body.user_id;
         theClient.id_type = body.id_type;
         theClient.id_number = body.id_number;
         theClient.phone_number = body.phone_number;
         theClient.order_count = body.order_count;
-        return await theClient.save(); //se confirma a la base de datos el cambio
+        return await theClient.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        //
-        const theClient: Client = await Client.findOrFail(params.id); //buscarlo
-        response.status(204);
-        return await theClient.delete(); // El cliente se encontro y sera eliminado
+        const theClient: Client = await Client.findOrFail(params.id);
+        await theClient.delete();
+        return response.status(200).json({
+            message:'Cliente eliminado con éxito',
+        });
     }
 }
