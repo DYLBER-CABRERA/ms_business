@@ -9,7 +9,6 @@ export default class CategoryValidator {
       rules.required(),
       rules.alphaNum({ allow: ['space', 'underscore', 'dash'] }),
       rules.unique({ table: 'categories', column: 'name' }) 
-
     ]),
 
     description: schema.string({}, [

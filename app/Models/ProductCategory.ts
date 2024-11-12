@@ -19,13 +19,15 @@ export default class ProductCategory extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  //Relación 1 a N
   @belongsTo(() => Product, {
-    foreignKey: 'product_id' //Clave foránea que relaciona con la categoría dominante
+    foreignKey: 'product_id' //Clave foránea que relaciona con la identidad dominante
   })
   public product: BelongsTo<typeof Product>
 
+  //Relación 1 a N
   @belongsTo(() => Category, {
-    foreignKey: 'category_id' //Clave foránea que relaciona con la categoría dominante
+    foreignKey: 'category_id' //Clave foránea que relaciona con la identidad dominante
   })
   public category: BelongsTo<typeof Category>
 }

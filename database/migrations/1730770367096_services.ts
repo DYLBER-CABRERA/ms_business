@@ -10,11 +10,6 @@ export default class extends BaseSchema {
       table.string("address");
       table.string("description");
       table.date("date");
-     // table.integer("hotel_id").unsigned().references("hotels.id");
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });

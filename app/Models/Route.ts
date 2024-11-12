@@ -34,23 +34,27 @@ export default class Route extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  //Relación 1 a N
   @hasMany(() => AddreRouteOrder, {
     foreignKey: "route_id", //Clave foránea que relaciona las categorías dominada
   })
   public addreRouteOrders: HasMany<typeof AddreRouteOrder>;
 
+  //Relación 1 a N
   @hasMany(() => Batch, {
-    foreignKey: "route_id", //Clave foránea que relaciona la categoría dominada
+    foreignKey: "route_id", //Clave foránea que relaciona la identidad dominada
   })
   public batches: HasMany<typeof Batch>;
 
+  //Relación 1 a N
   @belongsTo(() => Vehicle, {
-    foreignKey: 'vehicle_id' //Clave foránea que relaciona con la categoría dominante
+    foreignKey: 'vehicle_id'//Clave foránea que relaciona con la identidad dominante
   })
   public Vehicle: BelongsTo<typeof Vehicle>
   
+  //Relación 1 a N
   @belongsTo(() => Contract, {
-    foreignKey: 'contract_id' //Clave foránea que relaciona las categorías dominada
+    foreignKey: 'contract_id' //Clave foránea que relaciona las identidad dominada
   })
   public contract: BelongsTo<typeof Contract>
 }

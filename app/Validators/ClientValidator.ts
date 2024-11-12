@@ -14,10 +14,17 @@ export default class ClientValidator {
       rules.maxLength(15),
       rules.unique({ table: 'clients', column: 'id_number' }),
     ]),
-    phone_number: schema.number(),
-    order_count: schema.number(),
+    phone_number: schema.number([
+      rules.required()
+      ]),
+    order_count: schema.number([
+    rules.required()
+    ]),
+    user_id: schema.string([
+      rules.required(),
+      rules.exists({ table: 'users', column: 'user_id' })
+    ])
   })
-
 
   public messages: CustomMessages = {
     'id_type.required': 'El tipo de identificación es obligatorio.',
@@ -26,6 +33,8 @@ export default class ClientValidator {
     'id_number.maxLength': 'El número de identificación debe tener como máximo 15 caracteres.',
     'phone_number.required': 'El número de teléfono es obligatorio.',
     'phone_number.range': 'El número de teléfono debe estar entre 5 y 1000000000000.',
-    'phone_number.unsigned': 'El número de teléfono no puede ser negativo.'
+    'phone_number.unsigned': 'El número de teléfono no puede ser negativo.',
+    'order_count.required': 'El número de pedidos es obligatorio.',
+    'user_id.required': 'El ID del usuario es obligatorio.'
   }
 }

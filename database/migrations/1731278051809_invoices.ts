@@ -11,11 +11,6 @@ export default class extends BaseSchema {
       table.boolean('status') // Estado de la factura
       table.integer('quota_id').unsigned().references('quotas.id').onDelete('CASCADE')
       table.integer('expense_id').unsigned().references('expenses.id').onDelete('CASCADE')
-
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
