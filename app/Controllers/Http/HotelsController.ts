@@ -6,8 +6,7 @@ export default class HotelsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theHotel: Hotel = await Hotel.findOrFail(params.id);
-      //await theHotel.load("administrator"); //devuelve la info de que administrador tiene ese servicio
-
+      await theHotel.load("service"); //devuelve la info de que administrador tiene ese servicio
       return theHotel;
     } else {
       const data = request.all();
@@ -25,6 +24,7 @@ export default class HotelsController {
 
     const body = request.body();
     const theHotel: Hotel = await Hotel.create(body);
+    await theHotel.load("service");
     return theHotel;
   }
 
@@ -33,10 +33,8 @@ export default class HotelsController {
     const body = request.body(); //leer lo que viene en la carta
 
     theHotel.stars = body.stars; //de lo que está en la base de datos, actualice con lo que viene dentro del body
-    theHotel.name = body.name;
-    theHotel.address = body.address;
     theHotel.service_id = body.service_id;
-
+    await theHotel.load("service");
     return await theHotel.save(); //se confirma a la base de datos el cambio
   }
 

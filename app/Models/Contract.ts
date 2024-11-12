@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import Route from './Route'
 import Client from './Client'
+import Quota from './Quota'
 
 export default class Contract extends BaseModel {
   @column({ isPrimary: true })
@@ -34,4 +35,10 @@ export default class Contract extends BaseModel {
     foreignKey: 'client_id'//Clave foránea que relaciona con la clase dominante
   })
   public client: BelongsTo<typeof Client>
+  //Relacion con la tabla Quota un contrato tiene muchas quotas 1 a n
+  @hasMany(() => Quota,{
+    foreignKey: 'contract_id'
+  })
+  public quotas: HasMany <typeof Quota>
+
 }

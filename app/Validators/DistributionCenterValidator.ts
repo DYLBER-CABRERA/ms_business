@@ -19,27 +19,28 @@ export default class DistributionCenterValidator {
     ]),
   
     email: schema.string({}, [
-      rules.email(),
-      rules.required()
+      rules.email(),// Asegura que el correo electrónico tenga un formato válido
+      rules.required(),// Asegura que el campo no esté vacío
+      rules.unique({ table: 'distribution_centers', column: 'email' })
     ]),
   
     capacity: schema.number([
       rules.required(),
       rules.unsigned(), // Asegura que la capacidad sea un número entero positivo y no negativo
-      rules.range(1, 100) // Asegura que la capacidad esté entre 1 y 100
+      rules.range(1, 400000) // Asegura que la capacidad esté entre 1 y 400000 m^3(metros cubicos)
     ]),
   
     address_id: schema.number([
-      rules.exists({ table: 'addresses', column: 'id' }),
-      rules.unsigned(),
-      rules.required(),
-      rules.unique({ table: 'distribution_centers', column: 'address_id' })
+      rules.exists({ table: 'addresses', column: 'id' }),// Asegura que el ID de la dirección exista en la tabla 'addresses'
+      rules.unsigned(),// Asegura que el ID de la dirección no sea negativo
+      rules.required(),// Asegura que el campo no esté vacío
+      rules.unique({ table: 'distribution_centers', column: 'address_id' })// Asegura que el address_id sea único
     ]),
   
     municipality_id: schema.number([
-      rules.exists({ table: 'municipalities', column: 'id' }),
-      rules.unsigned(),
-      rules.required()
+      rules.exists({ table: 'municipalities', column: 'id' }),// Asegura que el ID del municipio exista en la tabla 'municipalities'
+      rules.unsigned(),// Asegura que el ID del municipio no sea negativo
+      rules.required()// Asegura que el campo no esté vacío
     ])
   })
 
@@ -51,6 +52,7 @@ export default class DistributionCenterValidator {
     'phone.unique': 'El número de teléfono ya está en uso.',
     'email.required': 'El correo electrónico es obligatorio.',
     'email.email': 'El correo electrónico debe ser válido.',
+    'email.unique': 'El correo electrónico ya está en uso.',
     'capacity.required': 'La capacidad es obligatoria.',
     'capacity.unsigned': 'La capacidad no puede ser negativa.',
     'capacity.range': 'La capacidad debe estar entre 1 y 100.',

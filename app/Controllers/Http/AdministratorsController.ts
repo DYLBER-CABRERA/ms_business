@@ -5,7 +5,6 @@ import AdministratorValidator from "App/Validators/AdministratorValidator";
 import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
 
-
 export default class AdministratorsController {
   public async find({ request, params }: HttpContextContract) {
     try {
@@ -26,7 +25,9 @@ export default class AdministratorsController {
             404
           );
         }
-        return { cliente: theAdministrator, usuario: userResponse.data }; //!POR que cliente??
+        await theAdministrator.load("service");
+
+        return { Administrator: theAdministrator, usuario: userResponse.data }; //!POR que cliente??
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {
@@ -45,15 +46,12 @@ export default class AdministratorsController {
     }
   }
 
-  
-    //*await request.validate(AdministratorValidator); //*cuando se llame este endpoint antes de mandar valida los datos de acuerdo a los parametros del validador
-
-
+  //*await request.validate(AdministratorValidator); //*cuando se llame este endpoint antes de mandar valida los datos de acuerdo a los parametros del validador
 
   ////////////////////////////////////////
   public async create({ request, response }: HttpContextContract) {
     try {
-      // Validar datos usando el ClienteValidator
+      // Validar datos usando el driverValidator
       const body = request.body();
 
       // Llamada al microservicio de usuarios
@@ -76,6 +74,8 @@ export default class AdministratorsController {
       // Crear el Administrator si la validación y la verificación de usuario son exitosas
       await request.validate(AdministratorValidator);
       const theAdministrator: Administrator = await Administrator.create(body);
+      await theAdministrator.load("service");
+
       return theAdministrator;
     } catch (error) {
       // Si el error es de validación, devolver los mensajes de error de forma legible
@@ -90,13 +90,13 @@ export default class AdministratorsController {
     }
   }
 
-
   public async update({ params, request }: HttpContextContract) {
     const theAdministrator: Administrator = await Administrator.findOrFail(
       params.id
     ); //busque el teatro con el identificador
     const body = request.body(); //leer lo que viene en la carta
     theAdministrator.user_id = body.user_id; //de lo que está en la base de datos, actualice con lo que viene dentro del body
+    await theAdministrator.load("service");
 
     return await theAdministrator.save(); //se confirma a la base de datos el cambio
   }

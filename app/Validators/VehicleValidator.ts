@@ -32,7 +32,7 @@ export default class VehicleValidator {
     ]),
     capacity: schema.number([
       rules.unsigned(), //que no sea negativo
-      rules.range(1, 100),
+      rules.range(1, 35000),
 
     ]),
     cargo_type: schema.string([

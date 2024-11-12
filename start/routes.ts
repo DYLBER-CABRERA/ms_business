@@ -41,6 +41,7 @@ import './routes/contracts';
 import './routes/operations';
 import './routes/routes';
 import './routes/addreRouteOrders';
+<<<<<<< HEAD
 import './routes/categories'
 import './routes/batches'
 import './routes/clients'
@@ -48,6 +49,13 @@ import './routes/products'
 import './routes/productCategories'
 import './routes/companies'
 import './routes/naturalPeople'
+=======
+import './routes/quotas';
+import './routes/invoices';
+import './routes/insurances';
+import './routes/vehicleOwners';
+
+>>>>>>> origin/main
 
 
 

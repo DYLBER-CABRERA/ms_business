@@ -42,6 +42,9 @@ export default class RoutesController {
         theRoute.deliveryDate = body.deliveryDate;
         theRoute.contract_id = body.contractI_id;
         theRoute.vehicle_id = body.vehicle_id;
+        await theRoute.load("Vehicle")
+        await theRoute.load("contract")
+        await theRoute.load("addreRouteOrders")
         return await theRoute.save();
     }
 

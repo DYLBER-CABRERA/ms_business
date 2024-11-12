@@ -1,14 +1,14 @@
 import { DateTime } from "luxon";
-import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import Service from "./Service";
 
 export default class Restaurant extends BaseModel {
+  //ES UNA
   @column({ isPrimary: true })
   public id: number;
 
   @column()
-  public name: string;
-  @column()
-  public address: string;
+  public cuisine_type: string;
   @column()
   public service_id: number;
 
@@ -17,4 +17,10 @@ export default class Restaurant extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+  @belongsTo(() => Service, {
+    //*hotel -servicio
+    foreignKey: "service_id",
+  })
+  public service: BelongsTo<typeof Service>;
+  
 }

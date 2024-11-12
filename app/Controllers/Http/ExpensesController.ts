@@ -6,8 +6,9 @@ export default class ExpensesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theExpense: Expense = await Expense.findOrFail(params.id);
-      await theExpense.load("driver"); //*Devuelve que conductor ...
-      await theExpense.load("service"); 
+      await theExpense.load("driver"); //*Devuelve que conductor tiene esa clase...
+      await theExpense.load("service");
+      await theExpense.load("owner");
 
       return theExpense;
     } else {
@@ -26,7 +27,11 @@ export default class ExpensesController {
 
     const body = request.body();
     const theExpense: Expense = await Expense.create(body);
+    await theExpense.load("driver"); //*Devuelve que conductor tiene esa clase...
+    await theExpense.load("service");
+    await theExpense.load("owner");
     return theExpense;
+
   }
 
   public async update({ params, request }: HttpContextContract) {
@@ -34,13 +39,11 @@ export default class ExpensesController {
     const body = request.body(); //leer lo que viene en la carta
 
     theExpense.amount = body.amount; //de lo que está en la base de datos, actualice con lo que viene dentro del body
-    theExpense.description = body.description;
     theExpense.service_id = body.service_id;
     theExpense.driver_id = body.driver_id;
-
-    //!PARA LA RELACION CON EL DUEÑO
-    //   theExpense.owner_id = body.owner_id;
-
+          await theExpense.load("driver"); //*Devuelve que conductor tiene esa clase...
+          await theExpense.load("service");
+          await theExpense.load("owner"); 
     return await theExpense.save(); //se confirma a la base de datos el cambio
   }
 

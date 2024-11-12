@@ -10,6 +10,7 @@ export default class DistributionCentersController {
             let theDistributionCenter: DistributionCenter = await DistributionCenter.findOrFail(params.id)//visualizo para mirar uno solo o varios 
             await theDistributionCenter.load("address")
             await theDistributionCenter.load("municipality")
+           
          
             return theDistributionCenter;//retorna el teatro
         } else {

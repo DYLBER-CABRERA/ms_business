@@ -8,16 +8,16 @@ export default class Operation extends BaseModel {
   public id: number
 
   @column()
-  public startDate: DateTime
+  public startDate: DateTime //fecha y hora de la factura
 
   @column()
-  public endDate: DateTime
+  public endDate: DateTime //fecha y hora de la factura
 
   @column()
-  public municipality_id: number
+  public municipality_id: number //monto total de la factura
   
   @column()
-  public vehicle_id: number
+  public vehicle_id: number//estado de la factura
 
   
 

@@ -9,13 +9,10 @@ export default class AddreRouteOrder extends BaseModel {
   public id: number
 
   @column()
-  start_address_id: number
+  address_id: number //direccion ID
 
   @column()
-  end_address_id: number
-
-  @column()
-  route_id: number
+  route_id: number //ruta ID
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -23,14 +20,11 @@ export default class AddreRouteOrder extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
   @belongsTo(() => Address, {
-    foreignKey: 'start_address_id',
+    foreignKey: 'address_id',
   })
-  public start_address: BelongsTo<typeof Address>
+  public addresses: BelongsTo<typeof Address>
 
-  @belongsTo(() => Address, {
-    foreignKey: 'end_address_id',
-  })
-  public end_address: BelongsTo<typeof Address>
+
 
   @belongsTo(() => Route,{
     foreignKey: 'route_id' //Clave foránea que relaciona con la clase dominante

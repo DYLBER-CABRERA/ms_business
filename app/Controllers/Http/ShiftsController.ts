@@ -25,6 +25,8 @@ export default class ShiftsController {
 
     const body = request.body();
     const theShift: Shift = await Shift.create(body);
+    await theShift.load("driver"); //*Devuelve que conductor tiene ese turno
+
     return theShift;
   }
 
@@ -35,6 +37,7 @@ export default class ShiftsController {
     theShift.end_time = body.end_time; //de lo que está en la base de datos, actualice con lo que viene dentro del body
     theShift.location = body.location; //de lo que está en la base de datos, actualice con lo que viene dentro del body
     theShift.driver_id = body.driver_id;
+    await theShift.load("driver"); //*Devuelve que conductor tiene ese turno
 
     return await theShift.save(); //se confirma a la base de datos el cambio
   }

@@ -7,6 +7,9 @@ export default class ServicesController {
     if (params.id) {
       let theService: Service = await Service.findOrFail(params.id);
       await theService.load("administrator"); //devuelve la info de que administrador tiene ese servicio
+      await theService.load("expense");
+      await theService.load("hotel");
+      await theService.load("restaurant");
 
       return theService;
     } else {
@@ -24,16 +27,28 @@ export default class ServicesController {
     await request.validate(ServiceValidator); //*cuando se llama este endpoint antes de mandar valida los datos de acuerdo a los parametros del validador
 
     const body = request.body();
+
     const theService: Service = await Service.create(body);
+    await theService.load("administrator"); //devuelve la info de que administrador tiene ese servicio
+    await theService.load("expense");
+    await theService.load("hotel");
+    await theService.load("restaurant");
+
     return theService;
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theService: Service = await Service.findOrFail(params.id); //busque el teatro con el identificador
     const body = request.body(); //leer lo que viene en la carta
-    theService.amount = body.amount;
+    theService.name = body.name;
+    theService.address = body.address;
+
     theService.description = body.description; //de lo que está en la base de datos, actualice con lo que viene dentro del body
     theService.date = body.date;
+    await theService.load("administrator"); //devuelve la info de que administrador tiene ese servicio
+    await theService.load("expense");
+    await theService.load("hotel");
+    await theService.load("restaurant");
 
     return await theService.save(); //se confirma a la base de datos el cambio
   }
