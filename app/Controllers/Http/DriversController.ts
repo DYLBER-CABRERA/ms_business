@@ -49,7 +49,6 @@ export default class DriversController {
       );
     }
   }
-
   public async create({ request, response }: HttpContextContract) {
     try {
       // Validar datos usando el driverValidator
@@ -63,7 +62,6 @@ export default class DriversController {
         }
       );
 
-      // Verificar si no se encontró información del usuario en el microservicio
       if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
         return response.notFound({
           error:
@@ -75,11 +73,11 @@ export default class DriversController {
       const theDriver: Driver = await Driver.create(body);
       return theDriver;
     } catch (error) {
-      // Si el error es de validación, devolver los mensajes de error de forma legible
+      // Manejar errores de validación
       if (error.messages) {
         return response.badRequest({ errors: error.messages.errors });
       }
-      // Para cualquier otro tipo de error, lanzar una excepción genérica
+      // Manejar errores generales
       throw new Exception(
         error.message || "Error al procesar la solicitud",
         error.status || 500
