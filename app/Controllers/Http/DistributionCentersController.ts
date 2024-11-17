@@ -51,7 +51,9 @@ export default class DistributionCentersController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theDistributionCenter: DistributionCenter = await DistributionCenter.findOrFail(params.id);
-            response.status(204);
-            return await theDistributionCenter.delete();
+           await theDistributionCenter.delete();
+        return response.status(204).json({ message: "centro de distribucion eliminado con exito" });
     }
+    
+    
 }

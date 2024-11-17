@@ -46,10 +46,11 @@ export default class QuotasController {
         theQuota.contract_id = body.contract_id;
         return await theQuota.save();
     }
-
-    public async delete({ params, response }: HttpContextContract) {
+    
+ public async delete({ params, response }: HttpContextContract) {
         const theQuota: Quota = await Quota.findOrFail(params.id);
-            response.status(204);
-            return await theQuota.delete();
+          await theQuota.delete();
+          return response.status(204).json({message: "Cuota eliminada con éxito"});
     }
+    
 }

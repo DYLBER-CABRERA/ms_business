@@ -1,4 +1,3 @@
-//rutas para activar los controladores
 import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
     Route.get("/routes", "RoutesController.find");
@@ -6,4 +5,4 @@ Route.group(() => {
     Route.post("/routes", "RoutesController.create");
     Route.put("/routes/:id", "RoutesController.update");
     Route.delete("/routes/:id", "RoutesController.delete");
-})
+}).middleware(["security"]);

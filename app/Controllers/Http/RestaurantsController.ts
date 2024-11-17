@@ -6,8 +6,8 @@ export default class RestaurantsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theRestaurant: Restaurant = await Restaurant.findOrFail(params.id);
-      
-       //devuelve la info de que administrador tiene ese servicio
+      await theRestaurant.load("service");
+
       return theRestaurant;
     } else {
       const data = request.all();
@@ -25,6 +25,8 @@ export default class RestaurantsController {
 
     const body = request.body();
     const theRestaurant: Restaurant = await Restaurant.create(body);
+    await theRestaurant.load("service");
+
     return theRestaurant;
   }
 
@@ -34,6 +36,7 @@ export default class RestaurantsController {
 
     theRestaurant.cuisine_type = body.cuisine_type;
     theRestaurant.service_id = body.service_id;
+    await theRestaurant.load("service");
 
     return await theRestaurant.save(); //se confirma a la base de datos el cambio
   }

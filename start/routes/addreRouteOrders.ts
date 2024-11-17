@@ -6,5 +6,5 @@ Route.group(() => {
     Route.post("/addreRouteOrders", "AddreRouteOrdersController.create");
     Route.put("/addreRouteOrders/:id", "AddreRouteOrdersController.update");
     Route.delete("/addreRouteOrders/:id", "AddreRouteOrdersController.delete");
-})
+}).middleware(["security"]);
 

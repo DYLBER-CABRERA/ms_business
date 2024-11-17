@@ -23,7 +23,7 @@ export default class DriverValidator {
     }),
     phone_number: schema.number([
       rules.required(), // Asegura que el campo no esté vacío
-      rules.range(5, 1000000000000),
+      rules.range(5, 10000000000000),
       rules.unsigned(), //que no sea negativo
     ]),
   });

@@ -7,6 +7,9 @@ export default class ServicesController {
     if (params.id) {
       let theService: Service = await Service.findOrFail(params.id);
       await theService.load("administrator"); //devuelve la info de que administrador tiene ese servicio
+      await theService.load("expense");
+      await theService.load("hotel");
+      await theService.load("restaurant");
 
       return theService;
     } else {
@@ -26,6 +29,11 @@ export default class ServicesController {
     const body = request.body();
 
     const theService: Service = await Service.create(body);
+    await theService.load("administrator"); //devuelve la info de que administrador tiene ese servicio
+    await theService.load("expense");
+    await theService.load("hotel");
+    await theService.load("restaurant");
+
     return theService;
   }
 
@@ -38,6 +46,9 @@ export default class ServicesController {
     theService.description = body.description; //de lo que está en la base de datos, actualice con lo que viene dentro del body
     theService.date = body.date;
     await theService.load("administrator"); //devuelve la info de que administrador tiene ese servicio
+    await theService.load("expense");
+    await theService.load("hotel");
+    await theService.load("restaurant");
 
     return await theService.save(); //se confirma a la base de datos el cambio
   }

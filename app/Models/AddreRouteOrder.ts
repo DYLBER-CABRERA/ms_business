@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import Address from './Address'
 import Route from './Route'
+import Batch from './Batch'
 
 export default class AddreRouteOrder extends BaseModel {
   @column({ isPrimary: true })
@@ -26,8 +27,13 @@ export default class AddreRouteOrder extends BaseModel {
 
 
   @belongsTo(() => Route,{
-    foreignKey: 'route_id'
+    foreignKey: 'route_id' //Clave foránea que relaciona con la clase dominante
   })
   public route: BelongsTo<typeof Route>
+
+  @hasOne(()=>Batch,{
+    foreignKey: 'addre_route_orders_id' //Clave foránea que relaciona con la clase dominada 
+  })
+  public batch: HasOne<typeof Batch>
 
 }

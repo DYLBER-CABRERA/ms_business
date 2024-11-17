@@ -47,8 +47,8 @@ export default class InvoicesController {
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theInvoice: Invoice = await Invoice.findOrFail(params.id);
-            response.status(204);
-            return await theInvoice.delete();
-    }
+      const theInvoice: Invoice = await Invoice.findOrFail(params.id);
+      await theInvoice.delete();
+      return response.status(204).json({message: "Factura eliminada con éxito"});
+  }
 }
