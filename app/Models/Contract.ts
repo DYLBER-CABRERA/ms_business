@@ -17,7 +17,6 @@ export default class Contract extends BaseModel {
   @column()
   public client_id: number
 
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -32,13 +31,14 @@ export default class Contract extends BaseModel {
 
   //Relacion 1 A N
   @belongsTo(() => Client, {
-    foreignKey: 'client_id'//Clave foránea que relaciona con la clase dominante
+    foreignKey: 'client_id'//Clave foránea que relaciona con la identidad dominante
   })
   public client: BelongsTo<typeof Client>
-  //Relacion con la tabla Quota un contrato tiene muchas quotas 1 a n
-  @hasMany(() => Quota,{
+
+  //Relacion 1 a N
+  @hasMany(() => Quota, {
     foreignKey: 'contract_id'
   })
-  public quotas: HasMany <typeof Quota>
+  public quotas: HasMany<typeof Quota>
 
 }

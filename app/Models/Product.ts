@@ -28,6 +28,7 @@ export default class Product extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  //Relación de 1 a N
   @hasMany(() => ProductCategory, {
     foreignKey: "category_id", //Clave foránea que relaciona la identidad dominada
   })
@@ -39,8 +40,9 @@ export default class Product extends BaseModel {
   })
   public client: BelongsTo<typeof Client>
 
+  //Relación 1 a N
   @belongsTo(() => Batch,{
-    foreignKey: 'batch_id' //Clave foránea que relaciona con la clase dominante
+    foreignKey: 'batch_id' //Clave foránea que relaciona con la identidad dominante
   })
   public batch: BelongsTo<typeof Batch>
 }

@@ -53,6 +53,8 @@ export default class AddreRouteOrdersController {
         const theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.findOrFail(params.id);
         await theAddreRouteOrder.delete();
         return response.status(204).json({ message: "direccion orden ruta eliminado con exito" });
+
+
     }
 
 

@@ -35,22 +35,21 @@ export default class Vehicle extends BaseModel {
   })
   public operations: HasMany<typeof Operation>
 
-//HACEMOS LA RELACION CON ROUTE (RUTAS)  
+//Relación 1 a N
   @hasMany(() => Route,{
-    foreignKey: 'vehicle_id',
+    foreignKey: 'vehicle_id', //Clave foránea que relaciona con la identidad dominante
   })
   public routes: HasMany <typeof Route>
 
-  //HACEMOS LA RELACION CON INSURECE (SEGUROS)
-
+  //Relación de 1 a N
   @hasMany(() => Insurance,{
-    foreignKey: 'vehicle_id',
+    foreignKey: 'vehicle_id',//Clave foránea que relaciona con la identidad dominante
   })
   public insurances: HasMany <typeof Insurance>
 
-  
+  //Relación de 1 a N
   @hasMany(() => VehicleOwner,{
-    foreignKey: 'vehicle_id',
+    foreignKey: 'vehicle_id',//Clave foránea que relaciona con la identidad dominante
   })
   public vehicleOwners: HasMany <typeof VehicleOwner>
 }

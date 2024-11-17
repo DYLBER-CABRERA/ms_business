@@ -11,9 +11,7 @@ export default class AddreRouteOrderValidator {
         rules.unsigned(),
         rules.required()
       ]),
-  
-   
-  
+ 
       route_id: schema.number([
         rules.required(),
         rules.unsigned(),
@@ -21,8 +19,6 @@ export default class AddreRouteOrderValidator {
       ])
     })
   
-
-
   public messages: CustomMessages = {
     'address_id.required': 'La dirección es requerida',
     'address_id.exists': 'La dirección no existe',

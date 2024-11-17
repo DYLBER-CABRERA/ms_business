@@ -22,11 +22,17 @@ export default class ExpenseValidator {
       rules.exists({ table: "services", column: "id" }),
     ]),
 
-      owner_id: schema.number([
-    //*REVISA que el servicio con ese id si exista en la tabla de servicios en la columna id
-       rules.exists({ table: "owners", column: "id" }),
-      ]),
+    owner_id: schema.number([
+      //*REVISA que el servicio con ese id si exista en la tabla de servicios en la columna id
+      rules.exists({ table: "owners", column: "id" }),
+    ]),
   });
 
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "amount.required": "El monto es obligatorio.",
+    "amount.unsigned": "El monto no puede ser negativo",
+    "driver_id.exists": "El id del conductor no existe.",
+    "service_id.exists": "El id del servicio no existe.",
+    "owner_id.exists": "El id del dueño no existe.",
+  };
 }

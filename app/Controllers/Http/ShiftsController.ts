@@ -44,9 +44,9 @@ export default class ShiftsController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Shift = await Shift.findOrFail(params.id); //buscarlo
+    const theShift: Shift = await Shift.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theShift.delete(); //el teatro que se encontro, eliminelo
   }
 }

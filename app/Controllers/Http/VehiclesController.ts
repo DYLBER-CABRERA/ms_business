@@ -12,7 +12,6 @@ export default class VehiclesController {
             await theVehicles.load("routes")
             await theVehicles.load("insurances")
             await theVehicles.load("vehicleOwners")
-         
             return theVehicles;
         } else {
             const data = request.all()
@@ -23,10 +22,7 @@ export default class VehiclesController {
             } else {
                 return await Vehicles.query()
             }
-
         }
-
-
     }
   
 
@@ -38,7 +34,6 @@ export default class VehiclesController {
         await theVehicles.load("routes")
         await theVehicles.load("insurances")
         await theVehicles.load("vehicleOwners")
-
         return theVehicles;
     }
 
@@ -53,8 +48,6 @@ export default class VehiclesController {
     await theVehicles.load("routes")
     await theVehicles.load("insurances")
     await theVehicles.load("vehicleOwners")
-
-
     return await theVehicles.save();
   }
 
@@ -62,5 +55,6 @@ export default class VehiclesController {
     const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
     await theVehicles.delete();
     return response.status(204).json({ message: "Vehículo eliminado con éxito" });
+
   }
 }

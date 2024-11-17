@@ -31,7 +31,6 @@ export default class ExpensesController {
     await theExpense.load("service");
     await theExpense.load("owner");
     return theExpense;
-
   }
 
   public async update({ params, request }: HttpContextContract) {
@@ -41,17 +40,17 @@ export default class ExpensesController {
     theExpense.amount = body.amount; //de lo que está en la base de datos, actualice con lo que viene dentro del body
     theExpense.service_id = body.service_id;
     theExpense.driver_id = body.driver_id;
-          await theExpense.load("driver"); //*Devuelve que conductor tiene esa clase...
-          await theExpense.load("service");
-          await theExpense.load("owner"); 
+    await theExpense.load("driver"); //*Devuelve que conductor tiene esa clase...
+    await theExpense.load("service");
+    await theExpense.load("owner");
     return await theExpense.save(); //se confirma a la base de datos el cambio
   }
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Expense = await Expense.findOrFail(params.id); //buscarlo
+    const theExpense: Expense = await Expense.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theExpense.delete(); //el teatro que se encontro, eliminelo
   }
 }

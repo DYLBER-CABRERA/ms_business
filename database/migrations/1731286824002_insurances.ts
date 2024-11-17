@@ -11,10 +11,6 @@ export default class extends BaseSchema {
       table.date("end_date") // Fecha de fin de la poliza
       table.string("insurance_company") // Compañia de seguros
       table.integer("vehicle_id").unsigned().references('vehicles.id').onDelete('CASCADE') // Vehiculo asegurado
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

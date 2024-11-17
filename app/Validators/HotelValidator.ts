@@ -13,5 +13,8 @@ export default class HotelValidator {
       rules.exists({ table: "services", column: "id" }),
     ]),
   });
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "stars.required": "Las estrellas del hotel son obligatorias.",
+    "service_id.exists": "El id del servicio no existe.",
+  };
 }

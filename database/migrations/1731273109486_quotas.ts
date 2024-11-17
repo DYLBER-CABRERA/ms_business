@@ -11,10 +11,6 @@ export default class extends BaseSchema {
       table.dateTime('due_date') // Fecha de vencimiento
       table.boolean('status') // Estado de la cuota
       table.integer('contract_id').unsigned().references('contracts.id').onDelete('CASCADE')
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

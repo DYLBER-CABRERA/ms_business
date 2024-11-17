@@ -48,8 +48,6 @@ export default class Client extends BaseModel {
   })
   public companies: HasOne<typeof Company>;
 
-
-
   //Relacion de 1 a 1 
   @hasOne(() => NaturalPerson, {
     foreignKey: "client_id", //Clave foránea que relaciona la identidad dominada
