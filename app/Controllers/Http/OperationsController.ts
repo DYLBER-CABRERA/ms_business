@@ -47,7 +47,8 @@ export default class OperationsController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theOperation: Operation = await Operation.findOrFail(params.id);
-            response.status(204);
-            return await theOperation.delete();
+        await theOperation.delete();
+        return response.status(204).json({ message: "operación eliminado con éxito" });
     }
+    
 }

@@ -49,8 +49,10 @@ export default class VehicleOwnersController {
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theVehicleOwner: VehicleOwner = await VehicleOwner.findOrFail(params.id);
-            response.status(204);
-            return await theVehicleOwner.delete();
-    }
+      const theVehicleOwner: VehicleOwner = await VehicleOwner.findOrFail(params.id);
+      await theVehicleOwner.delete();
+      return response.status(204).json({message: "Propietario de vehículo eliminado con éxito"});
+  }
+  
+  
 }

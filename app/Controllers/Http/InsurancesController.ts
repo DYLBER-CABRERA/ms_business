@@ -45,9 +45,11 @@ export default class InsurancesController {
         return await theInsurance.save();
     }
 
+       
     public async delete({ params, response }: HttpContextContract) {
-        const theInsurance: Insurance = await Insurance.findOrFail(params.id);
-            response.status(204);
-            return await theInsurance.delete();
-    }
+      const theInsurance: Insurance = await Insurance.findOrFail(params.id);
+         await theInsurance.delete();
+         return response.status(204).json({message: "Seguro eliminado con éxito"});
+  }
+  
 }

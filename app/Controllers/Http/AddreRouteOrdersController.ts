@@ -52,9 +52,9 @@ export default class AddreRouteOrdersController {
     public async delete({ params, response }: HttpContextContract) {
         const theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.findOrFail(params.id);
         await theAddreRouteOrder.delete();
-        return response.status(200).json({
-            message:'orden direccion ruta eliminado con éxito'
-        });
+        return response.status(204).json({ message: "direccion orden ruta eliminado con exito" });
+
+
     }
 
 

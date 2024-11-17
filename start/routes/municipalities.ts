@@ -9,4 +9,4 @@ Route.group(() => {
   Route.get('departments/:departmentId/municipalities', 'MunicipalitiesController.municipalitiesByDepartment')
   Route.get('/municipalities/:id/distributionCenters', 'MunicipalitiesController.getDistributionCenters')
   Route.post('municipalities/fetch', 'MunicipalitiesController.fetchAndStore')
-}).prefix('api')
+}).prefix('api').middleware(['security'])

@@ -6,4 +6,4 @@ Route.group(() => {
     Route.post("/invoices", "InvoicesController.create");
     Route.put("/invoices/:id", "InvoicesController.update");
     Route.delete("/invoices/:id", "InvoicesController.delete");
-})
+}).middleware(["security"]);
