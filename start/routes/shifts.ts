@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post("/shifts", "ShiftsController.create"); //crearlos
   Route.put("/shifts/:id", "ShiftsController.update"); //actualizar recibe id
   Route.delete("/shifts/:id", "ShiftsController.delete"); //borrar, recibe id
-});
+}).middleware(["security"]);

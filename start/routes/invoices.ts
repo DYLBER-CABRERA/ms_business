@@ -7,4 +7,4 @@ Route.group(() => {
     Route.post("/invoicesMSP", "InvoicesController.createMSP");
     Route.put("/invoices/:id", "InvoicesController.update");
     Route.delete("/invoices/:id", "InvoicesController.delete");
-})
+}).middleware(["security"]);
