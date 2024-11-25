@@ -10,10 +10,6 @@ export default class extends BaseSchema {
       table.dateTime("expiration_date");
       table.string("phone_number"); // Cambiado a string
       table.string("user_id"); //* EL USER YA DEBE ESTAR CREADO Y SE LE ASOCIOA AL CONDUCTOR
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });

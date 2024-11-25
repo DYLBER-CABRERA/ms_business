@@ -21,7 +21,7 @@ export default class Company extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  //Relacion de 1 a 1 
+  //Relación de 1 a 1 
   @hasOne(() => NaturalPerson, {
     foreignKey: "company_id", //Clave foránea que relaciona la identidad dominada
   })

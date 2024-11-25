@@ -1,5 +1,5 @@
-import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema, CustomMessages, rules } from "@ioc:Adonis/Core/Validator";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 
 export default class OwnerValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -14,5 +14,8 @@ export default class OwnerValidator {
       rules.exists({ table: "drivers", column: "id" }),
     ]),
   });
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "user_id.required": "El ID de usuario es obligatorio.",
+    "driver_id.exists": "El id del conductor no existe.",
+  };
 }

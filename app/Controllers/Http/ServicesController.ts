@@ -55,9 +55,9 @@ export default class ServicesController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Service = await Service.findOrFail(params.id); //buscarlo
+    const theService: Service = await Service.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theService.delete(); //el teatro que se encontro, eliminelo
   }
 }

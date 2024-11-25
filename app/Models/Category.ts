@@ -15,6 +15,12 @@ export default class Category extends BaseModel {
   @column()
   public parentCategory: number | null
 
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime
+
   @hasMany(() => Category, {
     foreignKey: 'parentCategory', // Clave foránea que relaciona las categorías hijas
   })
@@ -29,10 +35,4 @@ export default class Category extends BaseModel {
     foreignKey: "category_id", //Clave foránea que relaciona la identidad dominada
   })
   public productCategory: HasMany<typeof ProductCategory>;
-
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
 }

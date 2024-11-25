@@ -19,8 +19,8 @@ export default class OwnersController {
             headers: { Authorization: request.headers().authorization || "" },
           }
         );
-            await theOwner.load("driver");
-            await theOwner.load("vehicleOwners");
+        await theOwner.load("driver");
+        await theOwner.load("vehicleOwners");
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
@@ -61,7 +61,6 @@ export default class OwnersController {
         }
       );
 
-   
       // Verificar si no se encontró información del usuario en el microservicio
       if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
         return response.notFound({
@@ -104,9 +103,9 @@ export default class OwnersController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Owner = await Owner.findOrFail(params.id); //buscarlo
+    const theOwner: Owner = await Owner.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theOwner.delete(); //el teatro que se encontro, eliminelo
   }
 }

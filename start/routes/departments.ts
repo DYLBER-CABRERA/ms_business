@@ -8,4 +8,4 @@ Route.group(() => {
   Route.get('departments/:id', 'DepartmentsController.find')
   Route.post('departments/fetch', 'DepartmentsController.fetchAndStore')
   
-}).prefix('api')
+}).prefix('api')//.middleware(['security'])

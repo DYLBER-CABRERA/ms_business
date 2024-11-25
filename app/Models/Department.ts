@@ -25,7 +25,7 @@ export default class Department extends BaseModel {
 
   @column()
   public population?: number //poblacion
- 
+
   @column()
   public phonePrefix?: string  //prefijo telefonico
 
@@ -42,7 +42,7 @@ export default class Department extends BaseModel {
   public updatedAt: DateTime
 
   //aqui definimos la relacion de 1 a muchos en este caso definimos que 1 departamento tiene muchos municipios
-  @hasMany(() => Municipality,{ //relacion de 1 a n
+  @hasMany(() => Municipality, { //relacion de 1 a n
     //nombre de la clave foranea que permite la relacion bidireccional 1:n
   })
   public municipality: HasMany<typeof Municipality>

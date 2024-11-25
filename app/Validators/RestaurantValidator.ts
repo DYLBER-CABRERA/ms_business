@@ -1,5 +1,5 @@
-import { schema, CustomMessages,rules } from '@ioc:Adonis/Core/Validator'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema, CustomMessages, rules } from "@ioc:Adonis/Core/Validator";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 
 export default class RestaurantValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -18,5 +18,8 @@ export default class RestaurantValidator {
     ]),
   });
 
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "cuisine_type.required": "El tipo de comida es obligatorio.",
+    "service_id.exists": "El id del servicio no existe.",
+  };
 }

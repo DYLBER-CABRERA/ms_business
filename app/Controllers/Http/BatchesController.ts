@@ -41,8 +41,10 @@ export default class BatchesController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theBatch: Batch = await Batch.findOrFail(params.id);
-        response.status(204);
-        return await theBatch.delete();
+        await theBatch.delete();
+        return response.status(200).json({
+            message: 'Lote eliminado con éxito'
+        });
     }
 }
 

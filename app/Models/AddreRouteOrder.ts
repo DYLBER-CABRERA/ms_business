@@ -25,14 +25,12 @@ export default class AddreRouteOrder extends BaseModel {
   })
   public addresses: BelongsTo<typeof Address>
 
-
-
-  @belongsTo(() => Route,{
+  @belongsTo(() => Route, {
     foreignKey: 'route_id' //Clave foránea que relaciona con la clase dominante
   })
   public route: BelongsTo<typeof Route>
 
-  @hasOne(()=>Batch,{
+  @hasOne(() => Batch, {
     foreignKey: 'addre_route_orders_id' //Clave foránea que relaciona con la clase dominada 
   })
   public batch: HasOne<typeof Batch>

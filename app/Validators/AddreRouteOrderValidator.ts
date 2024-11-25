@@ -6,18 +6,12 @@ export default class AddreRouteOrderValidator {
 
   public schema = schema.create({
  
-    start_address_id: schema.number([
+    address_id: schema.number([
         rules.exists({ table: 'addresses', column: 'id' }),
         rules.unsigned(),
         rules.required()
       ]),
-  
-      end_address_id: schema.number([
-        rules.exists({ table: 'addresses', column: 'id' }),
-        rules.unsigned(),
-        rules.required()
-      ]),
-  
+ 
       route_id: schema.number([
         rules.required(),
         rules.unsigned(),
@@ -25,16 +19,12 @@ export default class AddreRouteOrderValidator {
       ])
     })
   
-
-
   public messages: CustomMessages = {
-    'startAddress_id.required': 'La dirección de inicio es requerida',
-    'startAddress_id.unsigned': 'La dirección de inicio debe ser un número entero',
-    'startAddress_id.exists': 'La dirección de inicio no existe',
-    'endAddress_id.required': 'La dirección de fin es requerida',
-    'endAddress_id.unsigned': 'La dirección de fin debe ser un número entero',
-    'endAddress_id.exists': 'La dirección de fin no existe',
+    'address_id.required': 'La dirección es requerida',
+    'address_id.exists': 'La dirección no existe',
+    'address_id.unsigned': 'La dirección debe ser un número entero positivo',
     'route_id.required': 'La ruta es requerida',
-    'route_id.unsigned': 'La ruta debe ser un número entero'
+    'route_id.exists': 'La ruta no existe',
+    'route_id.unsigned': 'La ruta debe ser un número entero positivo'
   }
 }

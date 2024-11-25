@@ -5,14 +5,8 @@ export default class VehicleValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    //    public license_plate: String;
-    //  public model: String;
-    //  public capacity: number;
-    //  public cargo_type: String;
-
     license_plate: schema.string([
-      rules.required(), // Asegura que el campo no esté vacío
-
+      rules.required(), 
       rules.alphaNum({
         allow: ["space", "underscore", "dash"], //es decir que soporta espacios guion bajo
       }),

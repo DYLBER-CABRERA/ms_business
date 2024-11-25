@@ -40,9 +40,9 @@ export default class HotelsController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Hotel = await Hotel.findOrFail(params.id); //buscarlo
+    const theHotel: Hotel = await Hotel.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theHotel.delete(); //el teatro que se encontro, eliminelo
   }
 }

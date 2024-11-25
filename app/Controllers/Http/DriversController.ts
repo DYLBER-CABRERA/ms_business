@@ -7,7 +7,6 @@ import DriverValidator from "App/Validators/DriverValidator";
 
 export default class DriversController {
   public async find({ request, params }: HttpContextContract) {
-     
     try {
       if (params.id) {
         let theDriver: Driver = await Driver.findOrFail(params.id);
@@ -18,21 +17,21 @@ export default class DriversController {
             headers: { Authorization: request.headers().authorization || "" },
           }
         );
-         await theDriver.load("expense");
-         await theDriver.load("shift");
-         await theDriver.load("vehicleDriver");
+        await theDriver.load("expense");
+        await theDriver.load("shift");
+        await theDriver.load("vehicleDriver");
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
             404
           );
         }
-        await theDriver.load("expense")
+        await theDriver.load("expense");
         await theDriver.load("owner");
         await theDriver.load("shift");
         await theDriver.load("vehicleDriver");
 
-        return { driver: theDriver, usuario: userResponse.data };
+        return { driver: theDriver, user: userResponse.data };
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {
@@ -50,7 +49,6 @@ export default class DriversController {
       );
     }
   }
-
   public async create({ request, response }: HttpContextContract) {
     try {
       // Validar datos usando el driverValidator
@@ -63,8 +61,7 @@ export default class DriversController {
           headers: { Authorization: request.headers().authorization || "" },
         }
       );
-      
-      // Verificar si no se encontró información del usuario en el microservicio
+
       if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
         return response.notFound({
           error:
@@ -76,11 +73,11 @@ export default class DriversController {
       const theDriver: Driver = await Driver.create(body);
       return theDriver;
     } catch (error) {
-      // Si el error es de validación, devolver los mensajes de error de forma legible
+      // Manejar errores de validación
       if (error.messages) {
         return response.badRequest({ errors: error.messages.errors });
       }
-      // Para cualquier otro tipo de error, lanzar una excepción genérica
+      // Manejar errores generales
       throw new Exception(
         error.message || "Error al procesar la solicitud",
         error.status || 500
@@ -102,9 +99,9 @@ export default class DriversController {
 
   public async delete({ params, response }: HttpContextContract) {
     //
-    const theTheater: Driver = await Driver.findOrFail(params.id); //buscarlo
+    const theDriver: Driver = await Driver.findOrFail(params.id); //buscarlo
     response.status(204);
 
-    return await theTheater.delete(); //el teatro que se encontro, eliminelo
+    return await theDriver.delete(); //el teatro que se encontro, eliminelo
   }
 }
