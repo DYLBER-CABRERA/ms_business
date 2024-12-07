@@ -19,7 +19,9 @@ export default class MunicipalitiesController {
       } else {
         // Si no se proporciona un ID, lista todos los municipios con paginación
         const page = request.input("page", 1); // Obtiene el número de página de la solicitud, por defecto es 1 si no se proporciona
-        const limit = request.input("limit", 10); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
+        const limit = request.input("limit", 2000); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
+
+        const limit = request.input("limit", 10); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporcion
         const municipalities = await Municipality.query()
           .preload("department")
           .preload("addresses")
@@ -82,6 +84,10 @@ export default class MunicipalitiesController {
             description: municipality.description, // Asigna la descripción del municipio
             surface: municipality.surface, // Asigna la superficie del municipio
             population: municipality.population, // Asigna la población del municipio
+
+            postal_code: municipality.postal_code, // Asigna el código postal del municipio
+            department_id: municipality.department_id, // Asigna el ID del departamento al que pertenece el municipio
+
             postalCode: municipality.postalCode, // Asigna el código postal del municipio
             departmentId: municipality.departmentId, // Asigna el ID del departamento al que pertenece el municipio
           }
@@ -117,4 +123,36 @@ export default class MunicipalitiesController {
       return response.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  public async create({ request }: HttpContextContract) {
+    //await request.validate(OperationValidator);//valida el request con el OperationValidator
+    const body = request.body();//toma la carta, lee el cuerpo del la carta y lo agrega a la variable body
+    const theMunicipality: Municipality = await Municipality.create(body);//await es esperando dentro del hilo a que la clase Operation la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene el location y la capacidad y lo colocamos en la variable theAdress de tipo Operation
+    await theMunicipality.load("department");//cargamos la relacion de municipio
+    return theMunicipality; //retornamos el teatro
 }
+
+
+  
+ 
+public async update({ params, request }: HttpContextContract) {
+  const theMunicipality: Municipality = await Municipality.findOrFail(params.id)
+  const body = request.body()
+  theMunicipality.name = body.name
+  theMunicipality.description = body.description
+  theMunicipality.surface = body.surface
+  theMunicipality.population = body.population
+  theMunicipality.postal_code = body.postal_code // Asegúrate de usar el nombre correcto de la propiedad
+  theMunicipality.department_id = body.department_id
+  await theMunicipality.save()
+  return theMunicipality
+}
+
+public async delete({ params, response }: HttpContextContract) {
+    const theMunicipality: Municipality = await Municipality.findOrFail(params.id);
+      await theMunicipality.delete();
+      return response.status(204).json({message: "Municipio eliminada con éxito"});
+}
+
+}
+

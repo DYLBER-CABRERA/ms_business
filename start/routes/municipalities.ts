@@ -9,4 +9,8 @@ Route.group(() => {
   Route.get('departments/:departmentId/municipalities', 'MunicipalitiesController.municipalitiesByDepartment')
   Route.get('/municipalities/:id/distributionCenters', 'MunicipalitiesController.getDistributionCenters')
   Route.post('municipalities/fetch', 'MunicipalitiesController.fetchAndStore')
-}).prefix('api').middleware(['security'])
+  Route.post('municipalities', 'MunicipalitiesController.create')
+  Route.put('municipalities/:id', 'MunicipalitiesController.update')
+  Route.delete('municipalities/:id', 'MunicipalitiesController.delete')
+}).prefix('api')//.middleware(['security'])
+

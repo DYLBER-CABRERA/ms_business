@@ -15,7 +15,7 @@ export default class QuotaValidator {
       rules.range(1, 100) // Asegura que la tasa de interés esté entre
     ]),
 
-    due_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss'}, [
+    due_date: schema.date({ format: 'yyyy-MM-dd'}, [
       rules.required(),
       rules.after('today') // Asegura que la fecha de vencimiento sea posterior a la fecha actual,
     ]),

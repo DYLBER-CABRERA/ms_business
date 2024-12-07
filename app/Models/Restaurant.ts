@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column} from "@ioc:Adonis/Lucid/Orm";
 import Service from "./Service";
+
 
 export default class Restaurant extends BaseModel {
   //ES UNA
@@ -22,5 +23,7 @@ export default class Restaurant extends BaseModel {
     foreignKey: "service_id",
   })
   public service: BelongsTo<typeof Service>;
+
+
   
 }

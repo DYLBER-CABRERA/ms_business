@@ -44,6 +44,7 @@ export default class Department extends BaseModel {
   //aqui definimos la relacion de 1 a muchos en este caso definimos que 1 departamento tiene muchos municipios
   @hasMany(() => Municipality, { //relacion de 1 a n
     //nombre de la clave foranea que permite la relacion bidireccional 1:n
+    foreignKey: 'department_id'
   })
   public municipality: HasMany<typeof Municipality>
 

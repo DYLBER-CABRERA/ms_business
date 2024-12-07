@@ -35,6 +35,7 @@ import './routes/quotas';
 import './routes/invoices';
 import './routes/insurances';
 import './routes/vehicleOwners';
+import './routes/restrictions';
 
 
 
