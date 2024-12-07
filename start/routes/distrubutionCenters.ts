@@ -7,3 +7,6 @@ Route.group(() => {
     Route.put("/distributionCenter/:id", "DistributionCentersController.update");
     Route.delete("/distributionCenter/:id", "DistributionCentersController.delete");
 })//.middleware(["security"]);
+
+
+

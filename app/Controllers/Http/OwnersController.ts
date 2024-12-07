@@ -23,6 +23,9 @@ export default class OwnersController {
           }
         );
 
+        await theOwner.load("driver");
+        await theOwner.load("vehicleOwners");
+
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
