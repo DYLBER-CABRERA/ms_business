@@ -13,23 +13,37 @@ export default class OwnersController {
       if (params.id) {
         let theOwner: Owner = await Owner.findOrFail(params.id);
         // Llamada al microservicio de usuarios
+        await theOwner.load("driver");
+        await theOwner.load("vehicleOwners");
+
         const userResponse = await axios.get(
           `${Env.get("MS_SECURITY")}/users/${theOwner.user_id}`,
           {
             headers: { Authorization: request.headers().authorization || "" },
           }
         );
-        await theOwner.load("driver");
-        await theOwner.load("vehicleOwners");
+
         if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
           throw new Exception(
             "No se encontró información de usuario en el microservicio",
             404
           );
         }
-        await theOwner.load("driver");
 
-        return { cliente: theOwner, usuario: userResponse.data };
+        const data={
+          "_id":userResponse.data._id,
+          "name":userResponse.data.name,
+          "email":userResponse.data.email,
+          "verificationCode":userResponse.data.verificationCode,
+        }
+
+        const ownerWithUserData = {
+          ...theOwner.toJSON(),
+          user: data,
+        }
+
+        return ownerWithUserData
+
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {

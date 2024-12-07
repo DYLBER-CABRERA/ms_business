@@ -6,4 +6,4 @@ Route.group(() => {
     Route.post("/distributionCenter", "DistributionCentersController.create");
     Route.put("/distributionCenter/:id", "DistributionCentersController.update");
     Route.delete("/distributionCenter/:id", "DistributionCentersController.delete");
-}).middleware(["security"]);
+})//.middleware(["security"]);

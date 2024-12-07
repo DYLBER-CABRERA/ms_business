@@ -18,7 +18,7 @@ export default class RestrictionsController {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
                 return await Restriction.query().paginate(page, perPage); 
-                return Restriction
+                //return Restriction
             } else {
                 return await Restriction.query()
             }
@@ -34,14 +34,14 @@ export default class RestrictionsController {
     
           // Cargar relaciones necesarias
           await this.loadRelations(theRestriction)
-          await theRestriction.load('municipality')
+          //await theRestriction.load('municipality')
     
           // Verificar que las relaciones se hayan cargado correctamente
+    
           const operations = theRestriction.municipality?.operations
           if (!operations || operations.length === 0) {
             return response.status(400).json({ message: "No se encontraron operaciones para el municipio." })
           }
-    
           // Iterar sobre las operaciones y vehículos asociados
           for (const operation of operations) {
             const vehicle = operation.vehicle
@@ -128,5 +128,5 @@ export default class RestrictionsController {
       }
 
 
-
 }
+      

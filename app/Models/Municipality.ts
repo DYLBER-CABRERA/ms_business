@@ -24,10 +24,10 @@ export default class Municipality extends BaseModel {
   public population?: number //poblacion
 
   @column()
-  public postalCode?: string //codigo postal
+  public postal_code?: string //codigo postal
 
   @column()
-  public departmentId: number //id del departamento
+  public department_id: number //id del departamento
 
   @column.dateTime({ autoCreate: true }) //fecha de creacion
   public createdAt: DateTime
@@ -35,7 +35,9 @@ export default class Municipality extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true }) //fecha de actualizacion
   public updatedAt: DateTime
 
-  @belongsTo(() => Department) //relacion de 1 a n
+  @belongsTo(() => Department,{
+       foreignKey: 'department_id'
+  }) //relacion de 1 a n
   public department: BelongsTo<typeof Department>
 
   @hasMany(() => Address,{ 
