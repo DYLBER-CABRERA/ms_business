@@ -27,7 +27,8 @@ export default class AdministratorsController {
         }
         await theAdministrator.load("service");
 
-        return { Administrator: theAdministrator, usuario: userResponse.data }; //!POR que cliente??
+       // return { Administrator: theAdministrator, usuario: userResponse.data }; //!POR que cliente??
+       return theAdministrator
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {

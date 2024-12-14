@@ -6,12 +6,12 @@ export default class RouteValidator {
 
 
   public schema = schema.create({
-    startingPlace: schema.string({}, [
+    starting_place: schema.string({}, [
       rules.required(), // Asegura que el campo no esté vacío
       rules.alpha(), // Asegura que el valor solo contenga letras
       rules.maxLength(255), // Asegura que el valor no exceda los 255 caracteres
     ]),
-    endingPlace: schema.string({}, [
+    ending_place: schema.string({}, [
       rules.required(), // Asegura que el campo no esté vacío
       rules.alpha(), // Asegura que el valor solo contenga letras
       rules.maxLength(255), // Asegura que el valor no exceda los 255 caracteres
@@ -22,8 +22,8 @@ export default class RouteValidator {
       rules.range(0, 3000), // Asegura que el valor esté entre 0 y 3000 km
       rules.unsigned(), // Asegura que el valor no sea negativo
     ]),
-    deliveryDate: schema.date({
-      format: 'YYYY-MM-DD', // Asegura que el formato de la fecha sea 'YYYY-MM-DD'
+    delivery_date: schema.date({
+      format: 'yyyy-MM-dd', // Asegura que el formato de la fecha sea 'YYYY-MM-DD'
     }),
     contract_id: schema.number([
       rules.unsigned(), 
@@ -40,7 +40,7 @@ export default class RouteValidator {
     'distance.required': 'La distancia es obligatoria.',
     'distance.range': 'La distancia debe estar entre 0 y 3000 km.',
     'distance.unsigned': 'La distancia no puede ser negativa.',
-    'deliveryDate.date': 'La fecha de entrega debe tener el formato yyyy-MM-dd.',
+    'delivery_date.date': 'La fecha de entrega debe tener el formato yyyy-MM-dd.',
     'contract_id.exists': 'El contrato especificado no existe.',
     'contract_id.unsigned': 'El ID del contrato no puede ser negativo.',
     'vehicle_id.exists': 'El vehículo especificado no existe.',

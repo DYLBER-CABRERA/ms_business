@@ -37,7 +37,9 @@ export default class ContractController {
       expenseQuery.preload("NaturalPeople");
     });
 
-    const user = theContract.client.NaturalPeople?.user_id;
+    const user = theContract.client.NaturalPeople?.user_id
+    console.log(user);
+    
     const userResponse = await axios.get(
       //PARA OBTENER LA INFO DEL USUARIO DESDE MS_SEGURIDAD
       `${Env.get("MS_SECURITY")}/users/${user}`,

@@ -5,9 +5,9 @@ export default class OperationValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    start_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.after('today')]),
+    start_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.afterOrEqual('today')]),
 
-    end_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.after('today'), rules.afterField('start_date')]),
+    end_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.afterOrEqual('today'), rules.afterField('start_date')]),
     
     municipality_id: schema.number([
       rules.exists({ table: 'municipalities', column: 'id' }),
