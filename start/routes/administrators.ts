@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post("/administrators", "AdministratorsController.create"); //crearlos
   Route.put("/administrators/:id", "AdministratorsController.update"); //actualizar recibe id
   Route.delete("/administrators/:id", "AdministratorsController.delete"); //borrar, recibe id
-}).middleware(["security"]);
+})//.middleware(["security"]);

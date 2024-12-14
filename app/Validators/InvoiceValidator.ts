@@ -6,7 +6,7 @@ export default class InvoiceValidator {
 
   public schema = schema.create({
     date: schema.date(
-      { format: "yyyy-MM-dd HH:mm:ss" },
+      { format: "yyyy-MM-dd" },
       [rules.after("today")] // Asegura que la fecha de la factura sea posterior a la fecha actual
     ),
 

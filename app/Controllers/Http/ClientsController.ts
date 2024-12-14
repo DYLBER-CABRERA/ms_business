@@ -26,7 +26,21 @@ export default class ClientsController {
                         "No se encontró información del usuario en el sistema",
                         404
                     );
-                } return { cliente: theClient, usuario: userResponse.data };
+
+                } 
+                const data={
+                    "_id":userResponse.data._id,
+                    "name":userResponse.data.name,
+                    "email":userResponse.data.email,
+                    "verificationCode":userResponse.data.verificationCode,
+                  }
+                    const clientWithUserData = {
+                        ...theClient.toJSON(),
+                        user: data,
+                    }
+                return clientWithUserData;
+                
+
             } else {
                 const data = request.all();
                 if ("page" in data && "per_page" in data) {

@@ -6,7 +6,7 @@ export default class VehicleOwnerValidator {
 
   public schema = schema.create({
 
-    acquisition_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss'}),// Asegura que la fecha de adquisición tenga el formato yyyy-MM-dd HH:mm:ss
+    acquisition_date: schema.date({ format: 'yyyy-MM-dd'}),// Asegura que la fecha de adquisición tenga el formato yyyy-MM-dd HH:mm:ss
 
 
     ownership_percentage: schema.number([rules.unsigned(), rules.required(),// Asegura que el porcentaje de propiedad no sea negativo

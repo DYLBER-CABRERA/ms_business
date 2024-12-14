@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments("id");
       //!PARA LA RELACIÓN CON VEHICULOS
       table.integer("vehicle_id").unsigned().references("vehicles.id");
-      table.integer("driver_id").unsigned().references("drivers.id");
+      table.integer("driver_id").unsigned().references("drivers.id").onDelete('CASCADE')
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });
