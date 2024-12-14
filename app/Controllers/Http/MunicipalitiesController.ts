@@ -19,9 +19,8 @@ export default class MunicipalitiesController {
       } else {
         // Si no se proporciona un ID, lista todos los municipios con paginación
         const page = request.input("page", 1); // Obtiene el número de página de la solicitud, por defecto es 1 si no se proporciona
-        const limit = request.input("limit", 2000); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
+        const limit = request.input("limit", 2000); // Obtiene el límite de elementos por página de la solicitud, por defecto es 2000 si no se proporciona
 
-        const limit = request.input("limit", 10); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporcion
         const municipalities = await Municipality.query()
           .preload("department")
           .preload("addresses")
@@ -30,11 +29,7 @@ export default class MunicipalitiesController {
         return response.json(municipalities);
       }
     } catch (error) {
-      // Si ocurre un error, devuelve una respuesta con un estado 500 y un mensaje de error
-      return response.status(500).json({
-        message: "Error al obtener ciudades",
-        error: error.message,
-      });
+      return response.status(500).json({ error: error.message });
     }
   }
 
@@ -87,9 +82,6 @@ export default class MunicipalitiesController {
 
             postal_code: municipality.postal_code, // Asigna el código postal del municipio
             department_id: municipality.department_id, // Asigna el ID del departamento al que pertenece el municipio
-
-            postalCode: municipality.postalCode, // Asigna el código postal del municipio
-            departmentId: municipality.departmentId, // Asigna el ID del departamento al que pertenece el municipio
           }
         );
       }
