@@ -12,3 +12,5 @@ Route.group(() => {
   Route.delete('departments/:id', 'DepartmentsController.delete')
   
 }).prefix('api')//.middleware(['security'])
+
+

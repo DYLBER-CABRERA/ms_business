@@ -8,3 +8,5 @@ Route.group(() => {
     Route.put("/insurances/:id", "insurancesController.update");
     Route.delete("/insurances/:id", "insurancesController.delete");
 })//.middleware(["security"]);
+
+

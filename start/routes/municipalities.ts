@@ -13,3 +13,4 @@ Route.group(() => {
   Route.put('municipalities/:id', 'MunicipalitiesController.update')
   Route.delete('municipalities/:id', 'MunicipalitiesController.delete')
 }).prefix('api')//.middleware(['security'])
+

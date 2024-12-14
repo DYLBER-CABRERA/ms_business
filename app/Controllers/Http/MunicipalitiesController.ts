@@ -20,6 +20,8 @@ export default class MunicipalitiesController {
         // Si no se proporciona un ID, lista todos los municipios con paginación
         const page = request.input("page", 1); // Obtiene el número de página de la solicitud, por defecto es 1 si no se proporciona
         const limit = request.input("limit", 2000); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
+
+        const limit = request.input("limit", 10); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporcion
         const municipalities = await Municipality.query()
           .preload("department")
           .preload("addresses")
@@ -82,8 +84,12 @@ export default class MunicipalitiesController {
             description: municipality.description, // Asigna la descripción del municipio
             surface: municipality.surface, // Asigna la superficie del municipio
             population: municipality.population, // Asigna la población del municipio
+
             postal_code: municipality.postal_code, // Asigna el código postal del municipio
             department_id: municipality.department_id, // Asigna el ID del departamento al que pertenece el municipio
+
+            postalCode: municipality.postalCode, // Asigna el código postal del municipio
+            departmentId: municipality.departmentId, // Asigna el ID del departamento al que pertenece el municipio
           }
         );
       }
@@ -126,6 +132,7 @@ export default class MunicipalitiesController {
     return theMunicipality; //retornamos el teatro
 }
 
+
   
  
 public async update({ params, request }: HttpContextContract) {
@@ -148,3 +155,4 @@ public async delete({ params, response }: HttpContextContract) {
 }
 
 }
+
