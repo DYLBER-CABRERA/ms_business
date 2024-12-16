@@ -2,8 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class RouteValidator {
-  constructor(protected ctx: HttpContextContract) { }
-
+  constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
     starting_place: schema.string({}, [
@@ -22,21 +21,24 @@ export default class RouteValidator {
       rules.range(0, 3000), // Asegura que el valor esté entre 0 y 3000 km
       rules.unsigned(), // Asegura que el valor no sea negativo
     ]),
-    delivery_date: schema.date({
-      format: 'yyyy-MM-dd', // Asegura que el formato de la fecha sea 'YYYY-MM-DD'
+
+    deliveryDate: schema.date({
+      format: "yyyy-MM-dd",
+
     }),
     contract_id: schema.number([
-      rules.unsigned(), 
-      rules.exists({ table: 'contracts', column: 'id' }), 
+      rules.unsigned(),
+      rules.exists({ table: "contracts", column: "id" }),
     ]),
     vehicle_id: schema.number([
-      rules.unsigned(), 
-      rules.exists({ table:'vehicles', column: 'id' }), 
-      rules.unique({ table: 'routes', column: 'vehicle_id' }),
-    ])
-  })
+      rules.unsigned(),
+      rules.exists({ table: "vehicles", column: "id" }),
+      rules.unique({ table: "routes", column: "vehicle_id" }),
+    ]),
+  });
 
   public messages: CustomMessages = {
+
     'distance.required': 'La distancia es obligatoria.',
     'distance.range': 'La distancia debe estar entre 0 y 3000 km.',
     'distance.unsigned': 'La distancia no puede ser negativa.',
@@ -46,4 +48,5 @@ export default class RouteValidator {
     'vehicle_id.exists': 'El vehículo especificado no existe.',
     'vehicle_id.unsigned': 'El ID del vehículo no puede ser negativo.',
   }
+
 }

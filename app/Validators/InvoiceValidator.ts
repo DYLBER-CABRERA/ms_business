@@ -1,6 +1,5 @@
 import { schema, CustomMessages, rules } from "@ioc:Adonis/Core/Validator";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-
 export default class InvoiceValidator {
   constructor(protected ctx: HttpContextContract) {}
 
@@ -32,8 +31,7 @@ export default class InvoiceValidator {
   });
 
   public messages: CustomMessages = {
-    "date.date":
-      "La fecha de la factura debe tener el formato yyyy-MM-dd HH:mm:ss.",
+    "date.date": "La fecha de la factura debe tener el formato yyyy-MM-dd",
     "date.after":
       "La fecha de la factura debe ser posterior a la fecha actual.",
     "total.required": "El total es obligatorio.",
