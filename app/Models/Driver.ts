@@ -1,5 +1,12 @@
 import { DateTime } from "luxon";
-import { BaseModel, column, HasMany, hasMany, HasOne, hasOne } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  column,
+  HasMany,
+  hasMany,
+  HasOne,
+  hasOne,
+} from "@ioc:Adonis/Lucid/Orm";
 import Shift from "./Shift";
 import Expense from "./Expense";
 import VehicleDriver from "./VehicleDriver";
@@ -10,8 +17,6 @@ export default class Driver extends BaseModel {
   public id: number;
   //*NO TIENE NOMBRE NI CORREO PORQUE SE HEREDA DEL USUARIO
 
-
-  
   @column()
   public license_number: string; // Número de licencia del conductor
 
@@ -19,7 +24,7 @@ export default class Driver extends BaseModel {
   public expiration_date: DateTime;
 
   @column()
-  public phone_number: number; // Número de contacto del conductor
+  public phone_number: string; // Número de contacto del conductor
 
   @column()
   public user_id: string;
@@ -30,12 +35,14 @@ export default class Driver extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @hasMany(() => Shift, {  //TURNOS
+  @hasMany(() => Shift, {
+    //TURNOS
     foreignKey: "driver_id", //*Clave foranea
   })
   public shift: HasMany<typeof Shift>;
 
-  @hasMany(() => Expense, {  //GASTOS
+  @hasMany(() => Expense, {
+    //GASTOS
     //*El conductor tiene muchos gastos
     foreignKey: "driver_id", //cual es la clave foranea que permite esa relacion
   })
@@ -46,7 +53,7 @@ export default class Driver extends BaseModel {
     foreignKey: "driver_id", //cual es la clave foranea que permite esa relacion
   })
   public vehicleDriver: HasMany<typeof VehicleDriver>;
-  
+
   @hasOne(() => Owner, {
     foreignKey: "driver_id",
   })
