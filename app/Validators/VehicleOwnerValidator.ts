@@ -6,14 +6,14 @@ export default class VehicleOwnerValidator {
 
   public schema = schema.create({
 
-    acquisition_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss'}),// Asegura que la fecha de adquisición tenga el formato yyyy-MM-dd HH:mm:ss
+    acquisition_date: schema.date({ format: 'yyyy-MM-dd'}),// Asegura que la fecha de adquisición tenga el formato yyyy-MM-dd HH:mm:ss
 
 
-    ownership_percentage: schema.number([rules.unsigned(), rules.required,// Asegura que el porcentaje de propiedad no sea negativo
+    ownership_percentage: schema.number([rules.unsigned(), rules.required(),// Asegura que el porcentaje de propiedad no sea negativo
       rules.range(1, 100)]),// Asegura que el porcentaje de propiedad esté entre 1 y 100
 
 
-    owner_id: schema.number([
+      owner_id: schema.number([
       rules.exists({ table: 'owners', column: 'id' }),// Asegura que el ID del propietario exista en la tabla 'owners'
       rules.unsigned(),// Asegura que el ID del propietario no sea negativo
       rules.required()// Asegura que el campo no esté vacío

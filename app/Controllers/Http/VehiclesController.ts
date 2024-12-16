@@ -57,8 +57,10 @@ export default class VehiclesController {
   public async delete({ params, response }: HttpContextContract) {
     const theVehicles: Vehicles = await Vehicles.findOrFail(params.id);
     await theVehicles.delete();
+
     return response.status(200).json({
       message: "Vehículo eliminado con éxito",
     });
+
   }
 }

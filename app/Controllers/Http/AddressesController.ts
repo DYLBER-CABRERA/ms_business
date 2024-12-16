@@ -63,7 +63,8 @@ export default class AddressesController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theAddress: Address = await Address.findOrFail(params.id);
-            response.status(204);
-            return await theAddress.delete();
+        await theAddress.delete();
+        return response.status(204).json({ message: "Direccion eliminada con exito" });
     }
+    
 }

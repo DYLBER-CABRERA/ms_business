@@ -37,8 +37,8 @@ export default class OperationsController {
     public async update({ params, request }: HttpContextContract) {
         const theOperation: Operation = await Operation.findOrFail(params.id);
         const body = request.body();
-        theOperation.startDate = body.startDate;
-        theOperation.endDate = body.endDate;
+        theOperation.start_date = body.start_date;
+        theOperation.end_date = body.end_date;
         theOperation.vehicle_id = body.vehicle_id;
         theOperation.municipality_id = body.municipality_id;
     
@@ -47,7 +47,8 @@ export default class OperationsController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theOperation: Operation = await Operation.findOrFail(params.id);
-            response.status(204);
-            return await theOperation.delete();
+        await theOperation.delete();
+        return response.status(204).json({ message: "operación eliminado con éxito" });
     }
+    
 }

@@ -5,6 +5,13 @@ export default class AddreRouteOrderValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+ 
+    address_id: schema.number([
+        rules.exists({ table: 'addresses', column: 'id' }),
+        rules.unsigned(),
+        rules.required()
+      ]),
+ 
       route_id: schema.number([
         rules.required(),
         rules.unsigned(),
@@ -12,9 +19,12 @@ export default class AddreRouteOrderValidator {
       ])
     })
   
-
   public messages: CustomMessages = {
+    'address_id.required': 'La dirección es requerida',
+    'address_id.exists': 'La dirección no existe',
+    'address_id.unsigned': 'La dirección debe ser un número entero positivo',
     'route_id.required': 'La ruta es requerida',
-    'route_id.unsigned': 'La ruta debe ser un número entero'
+    'route_id.exists': 'La ruta no existe',
+    'route_id.unsigned': 'La ruta debe ser un número entero positivo'
   }
 }

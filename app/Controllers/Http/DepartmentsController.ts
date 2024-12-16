@@ -17,7 +17,7 @@ export default class DepartmentsController {
       } else {
         // Si no se proporciona un ID, lista todos los departamentos con paginación
         const page = request.input('page', 1) // Obtiene el número de página de la solicitud, por defecto es 1 si no se proporciona
-        const limit = request.input('limit', 10) // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
+        const limit = request.input('limit', 50) // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
         const departments = await Department.query().paginate(page, limit) // Aplica la paginación con el número de página y el límite de elementos por página
 
         // Carga la relación 'municipalities' para cada departamento
@@ -74,4 +74,36 @@ export default class DepartmentsController {
       })
     }
   }
+
+  
+  public async create({ request }: HttpContextContract) {
+    //await request.validate(OperationValidator);//valida el request con el OperationValidator
+    const body = request.body();//toma la carta, lee el cuerpo del la carta y lo agrega a la variable body
+    const theDepartment: Department = await Department.create(body);//await es esperando dentro del hilo a que la clase Operation la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene el location y la capacidad y lo colocamos en la variable theAdress de tipo Operation
+    await theDepartment.load("municipality");//cargamos la relacion de municipio
+    return theDepartment; //retornamos el teatro
+}
+
+  
+  public async update({ params, request }: HttpContextContract) {
+    const theDepartment: Department = await Department.findOrFail(params.id);
+    const body = request.body();
+    theDepartment.name =body.name;
+    theDepartment.description = body.description;
+    theDepartment.cityCapitalId = body.cityCapitalId;
+    theDepartment.municipalities = body.municipalities;
+    theDepartment.surface = body.surface;
+    theDepartment.population = body.population;
+    theDepartment.phonePrefix = body.phonePrefix;
+    theDepartment.countryId = body.countryId;
+    theDepartment.regionId = body.regionId;
+    return await theDepartment.save();
+}
+
+public async delete({ params, response }: HttpContextContract) {
+    const theDepartment: Department = await Department.findOrFail(params.id);
+      await theDepartment.delete();
+      return response.status(204).json({message: "Cuota eliminada con éxito"});
+}
+
 }
