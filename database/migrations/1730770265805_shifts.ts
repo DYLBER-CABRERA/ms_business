@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.dateTime("start_time");
       table.dateTime("end_time");
       table.string("location");
-      table.integer("driver_id").unsigned().references("drivers.id");
+      table.integer("driver_id").unsigned().references("drivers.id").onDelete('CASCADE');
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });

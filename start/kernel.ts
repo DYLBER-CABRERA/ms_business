@@ -40,5 +40,8 @@ Server.middleware.register([
 | Route.get('dashboard', 'UserController.dashboard').middleware('auth')
 |
 */
+
+//aqui le decimos cuales rutas quedan blindadas
 Server.middleware.registerNamed({
+  "security" :() => import('App/Middleware/Security')  
 })

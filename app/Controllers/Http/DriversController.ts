@@ -31,7 +31,8 @@ export default class DriversController {
         await theDriver.load("shift");
         await theDriver.load("vehicleDriver");
 
-        return { driver: theDriver, usuario: userResponse.data };
+        //return { driver: theDriver, user: userResponse.data };
+        return theDriver
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {

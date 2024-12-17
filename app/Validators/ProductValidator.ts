@@ -25,8 +25,7 @@ export default class ProductValidator {
       rules.exists({ table: 'clients', column: 'id' })
     ]),
 
-    batch_id: schema.number([
-      rules.required(),
+    batch_id: schema.number.optional([
       rules.exists({ table: 'batches', column: 'id' })
     ])
   })
@@ -39,6 +38,6 @@ export default class ProductValidator {
     'expiration_date.after': 'La fecha de vencimiento debe ser posterior al día de hoy.',
     'client_id.required': 'El ID del cliente es obligatorio.',
     'client_id.exists': 'El ID del cliente no existe.',
-    'batch_id.required': 'El ID del lote es obligatorio.',
+   // 'batch_id.required.optional': 'El ID del lote es obligatorio.',
   }
 }

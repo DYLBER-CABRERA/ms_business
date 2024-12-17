@@ -6,4 +6,7 @@ Route.group(() => {
     Route.post("/address", "AddressesController.create");
     Route.put("/address/:id", "AddressesController.update");
     Route.delete("/address/:id", "AddressesController.delete");
-})
+
+})//.middleware(["security"]);
+
+

@@ -10,15 +10,10 @@ export default class InsuranceValidator {
       rules.required(),// Asegura que el campo no esté vacío
       rules.maxLength(255)// Asegura que el campo no tenga más de 255 caracteres
     ]),
-    start_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }, [
-      rules.required(),
-      rules.after('today')// Asegura que la fecha de inicio sea posterior a la fecha actual
-    ]),
-    end_date: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }, [
-      rules.required(),
-      rules.after('today'),
-      rules.afterField('start_date') // Asegura que la fecha de fin sea posterior a la fecha de inicio
-    ]),
+    start_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.afterOrEqual('today')]),
+
+    end_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.afterOrEqual('today'), rules.afterField('start_date')]),
+    
     insurance_company: schema.string({ trim: true }, [// Asegura que el campo no tenga espacios en blanco al principio y al final
       rules.required(),// Asegura que el campo no esté vacío
       rules.maxLength(255)// Asegura que el campo no tenga más de 255 caracteres

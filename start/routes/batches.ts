@@ -4,6 +4,7 @@ Route.group(() => {
     Route.get("/batches", "BatchesController.find");
     Route.get("/batches/:id", "BatchesController.find");
     Route.post("/batches", "BatchesController.create");
+    Route.post('/batches/route/:route_id', 'BatchesController.createForRoute');
     Route.put("/batches/:id", "BatchesController.update");
     Route.delete("/batches/:id", "BatchesController.delete");
-})
+})//.middleware(["security"]);

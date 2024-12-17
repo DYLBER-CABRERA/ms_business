@@ -10,12 +10,11 @@ export default class InvoicesController {
     if (params.id) {
       let theInvoice: Invoice = await Invoice.findOrFail(params.id);
       await theInvoice.load("quota");
-
       await theInvoice.load("expense", (expenseQuery) => {
         expenseQuery.preload("driver");
       });
       let licenseNumber = theInvoice.expense.driver?.license_number;
-      return { invoice: theInvoice, driverLicense: licenseNumber }; // Enviar el número de licencia del conductor;
+      return theInvoice;
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {
@@ -27,6 +26,7 @@ export default class InvoicesController {
       }
     }
   }
+  //Crear una nueva factura conectado con el microservicio de notificaciones
   public async create({ request }: HttpContextContract) {
     await request.validate(InvoiceValidator);
     const body = request.body();
@@ -114,7 +114,16 @@ export default class InvoicesController {
     if (!emailResponse.data || emailResponse.status !== 200) {
       console.warn("No se pudo enviar el email de confirmación.");
     }
+    return theInvoice;
+  }
 
+  // Crear factura con el microservicio de pagos
+  public async createMSP({ request }: HttpContextContract) {
+    await request.validate(InvoiceValidator);
+    const body = request.body();
+    const theInvoice: Invoice = await Invoice.create(body);
+    await theInvoice.load("quota");
+    await theInvoice.load("expense");
     return theInvoice;
   }
 
