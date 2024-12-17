@@ -43,5 +43,36 @@ export default class MessagesController {
         }
         );
     }
+
+    public async findByChat({ params }: HttpContextContract) {
+        return await Message.query().where("chat_id", params.id);
+    }
+
+    public async createByWebSocket(messageData: any) {
+        const theMessage: Message = await Message.create(messageData);
+        return theMessage;
+    }
+    public async deleteByChat({ params, response }: HttpContextContract) {
+        //busca los mensajes del chat
+        const messages = await Message.query().where("chat_id", params.id);
+        //recorre los mensajes y los elimina
+        messages.forEach(async (message) => {
+            await message.delete();
+        });
+        response.status(204);
+    }
+
+    /**
+     * Consulta para saber el número total de mensajes por día de acuerdo al created_at
+     *
+     */
+
+    public async getMessagesCountByDate({ }: HttpContextContract) {
+        return await Message.query()
+            .select("created_at")
+            .count("created_at")
+            .groupBy("created_at")
+            .orderBy("created_at", "desc");
+    }
 }
 

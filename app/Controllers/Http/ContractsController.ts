@@ -32,14 +32,12 @@ export default class ContractController {
     const theContract: Contract = await Contract.create(body);
     await theContract.load("quotas");
     await theContract.load("routes");
-
     await theContract.load("client", (expenseQuery) => {
       expenseQuery.preload("NaturalPeople");
     });
 
     const user = theContract.client.NaturalPeople?.user_id
     console.log(user);
-    
     const userResponse = await axios.get(
       //PARA OBTENER LA INFO DEL USUARIO DESDE MS_SEGURIDAD
       `${Env.get("MS_SECURITY")}/users/${user}`,

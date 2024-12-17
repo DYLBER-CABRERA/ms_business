@@ -122,29 +122,29 @@ export default class MunicipalitiesController {
     const theMunicipality: Municipality = await Municipality.create(body);//await es esperando dentro del hilo a que la clase Operation la cual es el modelo del metodo creat de fetch y tendra el body la cual tiene el location y la capacidad y lo colocamos en la variable theAdress de tipo Operation
     await theMunicipality.load("department");//cargamos la relacion de municipio
     return theMunicipality; //retornamos el teatro
-}
+  }
 
 
-  
- 
-public async update({ params, request }: HttpContextContract) {
-  const theMunicipality: Municipality = await Municipality.findOrFail(params.id)
-  const body = request.body()
-  theMunicipality.name = body.name
-  theMunicipality.description = body.description
-  theMunicipality.surface = body.surface
-  theMunicipality.population = body.population
-  theMunicipality.postal_code = body.postal_code // Asegúrate de usar el nombre correcto de la propiedad
-  theMunicipality.department_id = body.department_id
-  await theMunicipality.save()
-  return theMunicipality
-}
 
-public async delete({ params, response }: HttpContextContract) {
+
+  public async update({ params, request }: HttpContextContract) {
+    const theMunicipality: Municipality = await Municipality.findOrFail(params.id)
+    const body = request.body()
+    theMunicipality.name = body.name
+    theMunicipality.description = body.description
+    theMunicipality.surface = body.surface
+    theMunicipality.population = body.population
+    theMunicipality.postal_code = body.postal_code // Asegúrate de usar el nombre correcto de la propiedad
+    theMunicipality.department_id = body.department_id
+    await theMunicipality.save()
+    return theMunicipality
+  }
+
+  public async delete({ params, response }: HttpContextContract) {
     const theMunicipality: Municipality = await Municipality.findOrFail(params.id);
-      await theMunicipality.delete();
-      return response.status(204).json({message: "Municipio eliminada con éxito"});
-}
+    await theMunicipality.delete();
+    return response.status(204).json({ message: "Municipio eliminada con éxito" });
+  }
 
 }
 

@@ -27,19 +27,19 @@ export default class ClientsController {
                         404
                     );
 
-                } 
-                const data={
-                    "_id":userResponse.data._id,
-                    "name":userResponse.data.name,
-                    "email":userResponse.data.email,
-                    "verificationCode":userResponse.data.verificationCode,
-                  }
-                    const clientWithUserData = {
-                        ...theClient.toJSON(),
-                        user: data,
-                    }
+                }
+                const data = {
+                    "_id": userResponse.data._id,
+                    "name": userResponse.data.name,
+                    "email": userResponse.data.email,
+                    "verificationCode": userResponse.data.verificationCode,
+                }
+                const clientWithUserData = {
+                    ...theClient.toJSON(),
+                    user: data,
+                }
                 return clientWithUserData;
-                
+
 
             } else {
                 const data = request.all();
@@ -115,7 +115,7 @@ export default class ClientsController {
         const theClient: Client = await Client.findOrFail(params.id);
         await theClient.delete();
         return response.status(200).json({
-            message:'Cliente eliminado con éxito',
+            message: 'Cliente eliminado con éxito',
         });
     }
 }
