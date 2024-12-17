@@ -13,7 +13,7 @@ export default class Message extends BaseModel {
   public chat_id: number
 
   @column()
-  public user_id: string
+  public user_email: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('content', 255).notNullable()
       table.integer('chat_id').unsigned().references('chats.id').onDelete('CASCADE')
-      table.string('user_id').notNullable()
+      table.string('user_email').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
