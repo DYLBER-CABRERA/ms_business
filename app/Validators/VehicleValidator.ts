@@ -12,7 +12,6 @@ export default class VehicleValidator {
       }),
       rules.minLength(2),
       rules.maxLength(30),
-      rules.exists({ table: "vehicles", column: "license_plate" }),
     ]),
 
     model: schema.string([
@@ -22,7 +21,6 @@ export default class VehicleValidator {
       }),
       rules.minLength(2),
       rules.maxLength(30),
-      rules.exists({ table: "vehicles", column: "license_plate" }),
     ]),
     latitud_inicial: schema.number(),
     latitud_final: schema.number(),

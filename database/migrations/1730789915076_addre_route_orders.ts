@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.integer('address_id').unsigned().references('addresses.id').onDelete('CASCADE')
       table.integer('route_id').unsigned().references('routes.id').onDelete('CASCADE')
+      table.integer('order_by')
      
 
       /**

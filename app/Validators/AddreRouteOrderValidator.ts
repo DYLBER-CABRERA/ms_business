@@ -16,6 +16,10 @@ export default class AddreRouteOrderValidator {
         rules.required(),
         rules.unsigned(),
         rules.exists({ table: 'routes', column: 'id' }),
+      ]),
+      order_by: schema.number([
+        rules.required(),
+        rules.unsigned(),
       ])
     })
   

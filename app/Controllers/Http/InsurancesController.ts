@@ -57,7 +57,7 @@ export default class InsurancesController {
       console.log(InsuranceData);
   
       // Llamar a la función de validación
-      //await this.validateInsuranceData(request, InsuranceData);
+      await this.validateInsuranceData(request, InsuranceData);
   
       const theInsurance: Insurance = await Insurance.create(InsuranceData);
       await theInsurance.load("vehicles"); //

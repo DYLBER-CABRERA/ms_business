@@ -102,6 +102,7 @@ public async createForRoute({
         const body = request.body();
         theAddreRouteOrder.address_id = body.address_id;
         theAddreRouteOrder.route_id = body.route_id;
+        theAddreRouteOrder.order_by = body.order_by;
         await theAddreRouteOrder.load("addresses")
         await theAddreRouteOrder.load("route")//cargamos la relacion de rutas
     
@@ -133,6 +134,10 @@ public async createForRoute({
         rules.required(),
         rules.unsigned(),
         rules.exists({ table: 'routes', column: 'id' }),
+      ]),
+      order_by: schema.number([
+        rules.required(),
+        rules.unsigned(),
       ])
     })
     // Usamos request.validate para validar los datos

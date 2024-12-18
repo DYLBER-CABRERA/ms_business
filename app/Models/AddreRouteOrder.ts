@@ -15,6 +15,9 @@ export default class AddreRouteOrder extends BaseModel {
   @column()
   route_id: number //ruta ID
 
+  @column()
+  order_by: number //orden
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
