@@ -19,7 +19,8 @@ export default class MunicipalitiesController {
       } else {
         // Si no se proporciona un ID, lista todos los municipios con paginación
         const page = request.input("page", 1); // Obtiene el número de página de la solicitud, por defecto es 1 si no se proporciona
-        const limit = request.input("limit", 2000); // Obtiene el límite de elementos por página de la solicitud, por defecto es 2000 si no se proporciona
+
+        const limit = request.input("limit", 2000); // Obtiene el límite de elementos por página de la solicitud, por defecto es 10 si no se proporciona
 
         const municipalities = await Municipality.query()
           .preload("department")

@@ -22,7 +22,7 @@ export default class RouteValidator {
       rules.unsigned(), // Asegura que el valor no sea negativo
     ]),
 
-    deliveryDate: schema.date({
+    delivery_date: schema.date({
       format: "yyyy-MM-dd",
 
     }),
@@ -33,7 +33,6 @@ export default class RouteValidator {
     vehicle_id: schema.number([
       rules.unsigned(),
       rules.exists({ table: "vehicles", column: "id" }),
-      rules.unique({ table: "routes", column: "vehicle_id" }),
     ]),
   });
 

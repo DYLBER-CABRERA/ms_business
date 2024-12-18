@@ -4,6 +4,10 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 // import Env from "@ioc:Adonis/Core/Env";
 import Client from "App/Models/Client";
 import ClientValidator from "../../Validators/ClientValidator";
+import axios from "axios";
+import Env from "@ioc:Adonis/Core/Env";
+import { Exception } from "@adonisjs/core/build/standalone";
+
 
 export default class ClientsController {
 
@@ -59,7 +63,7 @@ export default class ClientsController {
         }
 
     }
-  }
+  
   public async create({ request }: HttpContextContract) {
     await request.validate(ClientValidator);
     const body = request.body();

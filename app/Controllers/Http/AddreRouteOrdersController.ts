@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import AddreRouteOrder from 'App/Models/AddreRouteOrder';
 import AddreRouteOrderValidator from 'App/Validators/AddreRouteOrderValidator';
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
 
 export default class AddreRouteOrdersController {
     public async find({ request, params }: HttpContextContract) {
@@ -14,7 +15,19 @@ export default class AddreRouteOrdersController {
         } else {
             //sino viene el identificador en la ruta
             const data = request.all()//listar a todos pero lo manda por tramos
-            if ("page" in data && "per_page" in data) {//listelos y mandelos la primera pagina como por ejemplo. que pagina y cuantos por pagina
+             console.log(data);
+            
+                  if ("route_id" in data) {
+                    return await AddreRouteOrder.query().where(
+                      "route_id",
+                      request.input("route_id")
+                    );
+                  } else if ("address_id" in data) {
+                    return await AddreRouteOrder.query().where(
+                      "address_id",
+                      request.input("address_id")
+                    );
+                }else if ("page" in data && "per_page" in data) {//listelos y mandelos la primera pagina como por ejemplo. que pagina y cuantos por pagina
                 const page = request.input('page', 1);//reques viene una pagina y guardala
                 const perPage = request.input("per_page", 20);//manda por pagina 20 si no se la mada
                 return await AddreRouteOrder.query().paginate(page, perPage)//devuelve y hace la consulta con query y la pagina osea tal pagina y cuantos elementos por pagina
@@ -37,6 +50,52 @@ export default class AddreRouteOrdersController {
         
         return theAddreRouteOrder; //retornamos el teatro
     }
+public async createForRoute({
+    params,
+    request,
+    response,
+  }: HttpContextContract) {
+    const route_id = parseInt(params.route_id, 10);
+
+    // Preparar los datos de validación
+    const body = request.body();
+    const AddreRouteOrderData = {
+      ...body,
+      route_id: route_id,
+    };
+    // Llamar a la función de validación
+    await this.validateAddreRouteOrderData(request, AddreRouteOrderData);
+
+    const theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.create(AddreRouteOrderData);
+    await theAddreRouteOrder.load("addresses")
+    await theAddreRouteOrder.load("route")//cargamos la relacion de rutas//
+    return response.status(201).json(theAddreRouteOrder);
+  }
+
+  public async createForAddress({
+    params,
+    request,
+    response,
+  }: HttpContextContract) {
+    const address_id = parseInt(params.address_id, 10);
+
+    // Preparar los datos de validación
+    const body = request.body();
+    const AddreRouteOrderData = {
+      ...body,
+      address_id: address_id,
+    };
+
+    console.log(AddreRouteOrderData);
+
+    // Llamar a la función de validación
+    await this.validateAddreRouteOrderData(request, AddreRouteOrderData);
+
+    const theAddreRouteOrder: AddreRouteOrder = await AddreRouteOrder.create(AddreRouteOrderData);
+    await theAddreRouteOrder.load("addresses")
+    await theAddreRouteOrder.load("route")//
+    return response.status(201).json(theAddreRouteOrder);
+  }
 
     public async update({ params, request }: HttpContextContract) {
         const theAddreRouteOrder: AddreRouteOrder= await AddreRouteOrder.findOrFail(params.id);
@@ -58,4 +117,28 @@ export default class AddreRouteOrdersController {
     }
 
 
+  private async validateAddreRouteOrderData(
+    request: HttpContextContract["request"],
+    data: any
+  ) {
+    const validationSchema = schema.create({
+      
+    address_id: schema.number([
+        rules.exists({ table: 'addresses', column: 'id' }),
+        rules.unsigned(),
+        rules.required()
+      ]),
+ 
+      route_id: schema.number([
+        rules.required(),
+        rules.unsigned(),
+        rules.exists({ table: 'routes', column: 'id' }),
+      ])
+    })
+    // Usamos request.validate para validar los datos
+    return await request.validate({
+      schema: validationSchema,
+      data,
+    });
+  }
 }

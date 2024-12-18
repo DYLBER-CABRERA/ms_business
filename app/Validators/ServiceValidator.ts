@@ -5,6 +5,7 @@ export default class ServiceValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    id: schema.number.optional(),
     name: schema.string([
       rules.required(), // Asegura que el campo no esté vacío
       rules.alphaNum({
@@ -31,7 +32,11 @@ export default class ServiceValidator {
       //* REVISA que si esté en formato de fecha
       format: "yyyy-MM-dd",
     }),
+    administrator:schema.object.optional().members({
+      id:schema.number([rules.exists({table:"administrators",column:"id"})])
+    })
   });
+
 
   public messages: CustomMessages = {
     "name.required": "El nombre es obligatorio.",

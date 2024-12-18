@@ -18,7 +18,7 @@ export default class OperationValidator {
       rules.exists({ table: 'vehicles', column: 'id' }),
       rules.unsigned(),
       rules.required(),
-      rules.unique({ table: 'operations', column: 'vehicle_id' }) // Asegura que el vehicle_id sea único
+   
    ] ),
   })
 
@@ -33,7 +33,7 @@ export default class OperationValidator {
     'vehicle_id.exists': 'El vehículo especificado no existe.',
     'vehicle_id.unsigned': 'El ID del vehículo no puede ser negativo.',
     'vehicle_id.required': 'El ID del vehículo es obligatorio.',
-    'vehicle_id.unique': 'El vehículo ya está en uso en otra operación.'
+  
 
   }
 }
