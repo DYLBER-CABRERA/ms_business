@@ -9,7 +9,7 @@ export default class Administrator extends BaseModel {
   public user_id: string;
 
   @column()
-  public service_id: number;
+  public service_id: number | null;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

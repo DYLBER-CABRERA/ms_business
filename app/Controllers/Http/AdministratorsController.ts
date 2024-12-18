@@ -9,9 +9,7 @@ export default class AdministratorsController {
   public async find({ request, params }: HttpContextContract) {
     try {
       if (params.id) {
-        let theAdministrator: Administrator = await Administrator.findOrFail(
-          params.id
-        );
+        let theAdministrator: Administrator = await Administrator.findOrFail(params.id);
         //*LLAMADA AL MS DE SEGURIDAD
         const userResponse = await axios.get(
           `${Env.get("MS_SECURITY")}/users/${theAdministrator.user_id}`,
@@ -27,23 +25,46 @@ export default class AdministratorsController {
         }
         await theAdministrator.load("service");
 
-       // return { Administrator: theAdministrator, usuario: userResponse.data }; //!POR que cliente??
-       return theAdministrator
+        return theAdministrator;
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {
           const page = request.input("page", 1);
           const perPage = request.input("per_page", 20);
           return await Administrator.query().paginate(page, perPage); //cuando hace la consulta se hace en ese rango de pagina
+        } else if ("filter" in data && data.filter === "no_service") {
+          // Filtrar administradores que no tienen un service_id y precargar la relación service
+          return await Administrator.query().whereNull("service_id").preload("service");
         } else {
-          return await Administrator.query(); //es para que espere a la base de datos
+          let originalAdministrator: Administrator[] = await Administrator.query();
+          console.log(originalAdministrator);
+
+          const auxAdministrator = await Promise.all(
+            originalAdministrator.map(async (admin) => {
+              const userResponse = await axios.get(
+                `${Env.get('MS_SECURITY')}/users/${admin.user_id}`,
+                {
+                  headers: { Authorization: request.headers().authorization || '' },
+                }
+              );
+              return {
+                ...admin.toJSON(),
+                user: {
+                  id: admin.user_id,
+                  name: userResponse.data.name,
+                  email: userResponse.data.email,
+                }
+              };
+            })
+          );
+
+          console.log(auxAdministrator);
+          return auxAdministrator;
         }
       }
     } catch (error) {
-      throw new Exception(
-        error.message || "Error al procesar la solicitud",
-        error.status || 500
-      );
+      console.error(error);
+      throw new Exception("Error al obtener los administradores", 500);
     }
   }
 

@@ -47,6 +47,6 @@ export default class QuotaValidator {
     'contract_id.exists': 'El contrato especificado no existe.',
     'contract_id.unsigned': 'El ID del contrato no puede ser negativo.',
     'contract_id.required': 'El ID del contrato es un campo obligatorio.',
-    'contract_id.unique': 'El ID del contrato ya está en uso.'
+
   }
 }

@@ -12,7 +12,7 @@ export default class VehicleValidator {
       }),
       rules.minLength(2),
       rules.maxLength(30),
-      rules.unique({ table: "vehicles", column: "license_plate" }),
+      rules.exists({ table: "vehicles", column: "license_plate" }),
     ]),
 
     model: schema.string([
@@ -22,7 +22,7 @@ export default class VehicleValidator {
       }),
       rules.minLength(2),
       rules.maxLength(30),
-      rules.unique({ table: "vehicles", column: "license_plate" }),
+      rules.exists({ table: "vehicles", column: "license_plate" }),
     ]),
     latitud_inicial: schema.number(),
     latitud_final: schema.number(),
@@ -48,6 +48,6 @@ export default class VehicleValidator {
       "La placa solo puede contener letras, números, espacios, guiones bajos y guiones.",
     "license_plate.minLength": "La placa debe tener al menos 2 caracteres.",
     "license_plate.maxLength": "La placa no puede tener más de 30 caracteres.",
-    "license_plate.unique": "La placa ya está registrada.",
+    "license_plate.exists": "La placa ya está registrada.",
   };
 }
