@@ -44,6 +44,5 @@ export default class Security {
       }else{
         return response.status(401)
       }
-     
     }
 }

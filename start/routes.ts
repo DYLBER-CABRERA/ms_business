@@ -36,7 +36,8 @@ import './routes/invoices';
 import './routes/insurances';
 import './routes/vehicleOwners';
 import './routes/restrictions';
-
+import './routes/chat';
+import './routes/message';
 
 
 

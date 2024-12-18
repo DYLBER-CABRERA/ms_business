@@ -13,7 +13,6 @@ export default class InvoicesController {
       await theInvoice.load("expense", (expenseQuery) => {
         expenseQuery.preload("driver");
       });
-      let licenseNumber = theInvoice.expense.driver?.license_number;
       return theInvoice;
     } else {
       const data = request.all();
